@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "dit257-ginger-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

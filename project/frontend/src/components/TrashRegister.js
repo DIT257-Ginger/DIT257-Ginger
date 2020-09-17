@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { writeTrashCount, readTrashCount } from "../persistence";
 
+/**
+ * Component for registering trash collected by user.
+ */
 export default function TrashRegister() {
   const [trashCount, setTrashCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch initial trash count
   useEffect(() => {
     async function fetchTrashCount() {
       const count = await readTrashCount();
       setTrashCount(count);
+      setLoading(false);
     }
     fetchTrashCount();
   }, []);
@@ -25,21 +31,29 @@ export default function TrashRegister() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.collectionText}>
-        You have collected {trashCount} bag(s) of trash!
-      </Text>
-      <Button
-        style={styles.button}
-        title="Press to collect another bag!"
-        onPress={onCollect}
-        color="#f194ff"
-      />
-      <Button
-        style={styles.button}
-        title="Press to clear your collection!"
-        onPress={onClear}
-        color="#f194ff"
-      />
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <Text style={styles.collectionText}>
+            You have collected {trashCount} bag(s) of trash!
+          </Text>
+          <Button
+            testID="increment-btn"
+            style={styles.button}
+            title="Press to collect another bag!"
+            onPress={onCollect}
+            color="#f194ff"
+          />
+          <Button
+            testID="clear-btn"
+            style={styles.button}
+            title="Press to clear your collection!"
+            onPress={onClear}
+            color="#f194ff"
+          />
+        </>
+      )}
     </View>
   );
 }
@@ -54,6 +68,7 @@ const styles = StyleSheet.create({
   button: {
     height: 70,
     alignItems: "center",
+    margin: 10,
   },
   collectionText: {
     fontSize: 50,

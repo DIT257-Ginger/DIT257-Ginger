@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { writeTrashCount, readTrashCount } from "../persistence";
+import UserLevel from "./UserLevel";
 
 /**
  * Component for registering trash collected by user.
@@ -35,6 +36,7 @@ export default function TrashRegister() {
         <Text>Loading...</Text>
       ) : (
         <>
+          <UserLevel />
           <Text style={styles.collectionText}>
             You have collected {trashCount} bag(s) of trash!
           </Text>
@@ -71,6 +73,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   collectionText: {
-    fontSize: 50,
+    fontSize: 30,
   },
 });

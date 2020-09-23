@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Button } from "react-native";
+import { StyleSheet, View, Button, SafeAreaView } from "react-native";
 import React from "react";
 import Home from './screens/Home';
 import Achievements from './screens/Achievements';
@@ -81,11 +81,18 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </SafeAreaView>
 
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 

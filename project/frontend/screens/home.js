@@ -1,9 +1,11 @@
 
 import React from "react";
+
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, Dimensions, Image, Button } from "react-native";
-import Profile from '../screens/profile';
+import Achievements from './Achievements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons';
 //const screenWidth = Math.round(Dimensions.get('window').width);

@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
+//import { NavigationContainer } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Button } from "react-native";
 import React from "react";
-import Home from './screens/home';
-import Camera from './screens/camera';
-import Share from './screens/share';
-import Profile from './screens/profile';
+import Home from './screens/Home';
+import Achievements from './screens/Achievements';
+import Login from './screens/Login';
+import UserSettings from './screens/UserSettings';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -39,10 +41,10 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Achievements"
+        component={Achievements}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Achievements',
           tabBarIcon: ({ color, size }) => (
             <Icon name="account" color={color} size={size} />
           ),
@@ -50,20 +52,20 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Camera"
-        component={Camera}
+        name="Login"
+        component={Login}
         options={{
-          tabBarLabel: 'Camera',
+          tabBarLabel: 'Login',
           tabBarIcon: ({ color, size }) => (
             <Icon name="camera" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Share"
-        component={Share}
+        name="UserSettings"
+        component={UserSettings}
         options={{
-          tabBarLabel: 'Share',
+          tabBarLabel: 'UserSettings',
           tabBarIcon: ({ color, size }) => (
             <Icon name="share-variant" color={color} size={size} />
           ),
@@ -73,7 +75,8 @@ function MyTabs() {
   );
 }
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
+
 
 
 export default function App() {
@@ -84,4 +87,5 @@ export default function App() {
 
   );
 }
+
 

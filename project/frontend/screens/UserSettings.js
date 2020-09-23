@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView,
-  SectionList} from 'react-native';
+import {
+  StyleSheet, Text, View, SafeAreaView,
+  SectionList
+} from 'react-native';
 import Constants from "expo-constants";
 
 const DATA = [
@@ -29,18 +31,18 @@ const Item = ({ title }) => (
   </View>
 );
 
-export default function UserSettings({navigaton}) {
+export default function UserSettings({ navigaton }) {
   return (
     <SafeAreaView style={styles.container}>
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <Item title={item} />}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.header}>{title}</Text>
-      )}
-    />
-  </SafeAreaView>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => <Item title={item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
+      />
+    </SafeAreaView>
   );
 
 }

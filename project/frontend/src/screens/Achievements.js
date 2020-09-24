@@ -106,7 +106,7 @@ const AchievementRow = ({ title, description, icon, secret, collected }) => (
   <View style={styles.achievementRow}>
     <View style={[styles.achievementIconContainer, !collected && styles.achievementIconContainerNotCollected]}>
       {!collected && secret ? (
-        <Icon name="question" size={40} color="white" style={[styles.achievementIcon, styles.achievementIconSecret]} />
+        <Icon name="question" size={40} color="white" style={styles.achievementIconSecret} />
       ) : (
         <Image source={icon} style={[styles.achievementIcon, !collected && styles.achievementIconNotCollected]} />
       )}
@@ -179,6 +179,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   achievementIconContainer: {
+    alignItems: "center",
+    justifyContent: "center",
     width: 60,
     height: 60,
     borderRadius: 1000,
@@ -188,9 +190,11 @@ const styles = StyleSheet.create({
     borderColor: "white"
   },
   achievementIcon: {
-    position: "absolute",
     width: "100%",
     height: "100%",
+  },
+  achievementIconSecret: {
+    color: "rgba(0,0,0,0.3)"
   },
   achievementInfoContainer: {
     flex: 1,
@@ -207,11 +211,6 @@ const styles = StyleSheet.create({
   },
   achievementIconContainerNotCollected: {
     borderWidth: 0,
-  },
-  achievementIconSecret: {
-    textAlign: "center",
-    textAlignVertical: "center",
-    color: "rgba(0,0,0,0.3)"
   },
   achievementIconNotCollected: {
     opacity: 0.3

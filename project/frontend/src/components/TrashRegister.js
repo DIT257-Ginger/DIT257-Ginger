@@ -43,14 +43,14 @@ export default function TrashRegister() {
             style={styles.button}
             title="Press to collect another bag!"
             onPress={onCollect}
-            color="#f194ff"
+            color="#31A896"
           />
           <Button
             testID="clear-btn"
             style={styles.button}
             title="Press to clear your collection!"
             onPress={onClear}
-            color="#f194ff"
+            color="#31A896"
           />
         </>
       )}
@@ -60,17 +60,18 @@ export default function TrashRegister() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    //flex: 1,
+    //backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
-    height: 70,
+    //changed to %
+    height: "70%",
     alignItems: "center",
-    margin: 10,
+    margin: "10%",
   },
   collectionText: {
-    fontSize: 50,
+    fontSize: 19,
   },
 });

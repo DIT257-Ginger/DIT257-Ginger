@@ -14,8 +14,12 @@ import { Asset } from "expo-asset";
 export default function Home({ navigation }) {
   return (
     //safeareaview seer lite skumt ut med background color?
-    
-    <SafeAreaView style={{flex: 1}} backgroundColor="#31A896" edges={['right', 'top', 'left']}>
+
+    <SafeAreaView
+      style={{ flex: 1 }}
+      backgroundColor="#31A896"
+      edges={["right", "top", "left"]}
+    >
       <View style={styles.container}>
         <View style={styles.top}>
           <View style={{ paddingTop: 12, paddingHorizontal: 30 }}>
@@ -24,7 +28,6 @@ export default function Home({ navigation }) {
           </View>
         </View>
         <View style={styles.middle}>
-          <Text style={{ textAlign: "center" }}>Home screen</Text>
           <Image
             style={styles.fillGarbage}
             source={require("../../assets/idleGif.gif")}
@@ -32,25 +35,25 @@ export default function Home({ navigation }) {
         </View>
         <View style={styles.bottom}>
           <TrashRegister />
-            <View style={styles.buttonContainer}>
-              <Button
-                style={styles.button}
-                title="Brag with image!"
-                onPress={() =>
-                  shareImage(
-                    Asset.fromModule(require("../../assets/idleGif.gif")).uri,
-                    "Share your trash!"
-                  )
-                }
-              />
-              <Button
-                style={styles.button}
-                title="Brag with text!"
-                onPress={() =>
-                  shareText("I have collected so much trash, look at it!")
-                }
-              />
-            </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.button}
+              title="Brag with image!"
+              onPress={() =>
+                shareImage(
+                  Asset.fromModule(require("../../assets/idleGif.gif")).uri,
+                  "Share your trash!"
+                )
+              }
+            />
+            <Button
+              style={styles.button}
+              title="Brag with text!"
+              onPress={() =>
+                shareText("I have collected so much trash, look at it!")
+              }
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -66,28 +69,30 @@ const styles = StyleSheet.create({
   top: {
     flexDirection: "row",
     backgroundColor: "#31A896",
-    height: 100,
+    height: "15%",
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
   },
   middle: {
-    //flexDirection: "column",
+    flexDirection: "column",
     alignItems: "stretch",
   },
   fillGarbage: {
+    flexGrow: 1,
     alignSelf: "center",
-    width: 200,
-    height: 460,
+    width: "45%",
+    height: "55%",
   },
   bottom: {
-
+    flexShrink: 1,
+    //justifyContent: "flex-end",
+    //flexDirection: "column",
   },
   buttonContainer: {
     flexDirection: "row",
-    marginBottom: 10,
+    //marginBottom: 10,
+    //},
+    //button: {
+    // margin: 10,
   },
-  button: {
-    margin: 10,
-  },
-  
 });

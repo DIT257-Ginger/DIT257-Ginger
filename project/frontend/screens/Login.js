@@ -12,60 +12,10 @@ import {
 
 export default function Login({ navigaton }) {
   return (
-    /*
-  <View style={styles.container}>
-    <Image source={require('./../assets/loginlogo.png')} style={{ width: 130, height: 120 }}/>
-    <View style={{flexDirection:"row"}}>
-                  <View style={{flex:1}}>
-                    <TextInput placeholder="Username:" style={{justifyContent: 'flex-start',}} />
-                  </View>
-                  <View style={{flex:1}}>
-                      <TextInput placeholder="Test" style={{justifyContent: 'flex-end',}} />
-                  </View>
-              </View>
-    
-    <Text>Username:</Text>
-    <TextInput
-      style={{
-        height: 25,
-        width: 120,
-        color: 'gray',
-        borderColor: 'gray',
-        borderWidth: 1
-      }}
-    />
-
-    <Text>Password:</Text>
-    <TextInput
-      style={{
-        height: 25,
-        width: 120,
-        color: 'gray',
-        borderColor: 'gray',
-        borderWidth: 1
-      }}
-    />
-
-    <Text>Login Button</Text>
-    <Text>Sign Up Button</Text>
-    <Text>Facebook Button</Text>
-    <Text>Instagram Button</Text>
-    
-    <Button
-      title="Press me"
-      backgroundColor="#f194ff"
-      borderColor='red'
-      color='red'
-      onPress={() => navigator.navigate}
-    />
-
-    <StatusBar style="auto" />
-    
-  </View>*/
     <View style={styles.container}>
       <View style={{ paddingBottom: 40 }}>
         <Image
-          source={require("./../assets/loginlogo.png")}
+          source={require("./../assets/leaflogo_1.png")}
           style={{ width: 130, height: 120 }}
         />
       </View>
@@ -103,7 +53,7 @@ export default function Login({ navigaton }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#8EE1FF",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -132,7 +82,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: "80%",
-    backgroundColor: "green",
+    backgroundColor: "#31A896",
     borderRadius: 25,
     height: 50,
     alignItems: "center",

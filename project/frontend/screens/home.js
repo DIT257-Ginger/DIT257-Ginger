@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
 import Achievements from "./Achievements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons";
@@ -10,7 +10,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Home({ navigation }) {
   return (
     //safeareaview seer lite skumt ut med background color?
-    <SafeAreaView>
+    
+    <SafeAreaView style={{flex: 1}} backgroundColor="#fff" edges={['right', 'top', 'left']}>
       <View style={styles.container}>
         <View style={styles.top}>
           <View style={{ paddingTop: 12, paddingHorizontal: 30 }}>
@@ -32,7 +33,8 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
+    flex: 2,
+    flexDirection: "column",
     backgroundColor: "#8EE1FF",
   },
   top: {
@@ -42,22 +44,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
   },
-  //sträcker sig inte ner till navbar?
   middle: {
-    flexDirection: "column",
-    padding: 24,
-    backgroundColor: "#8EE1FF",
+    //flexDirection: "column",
+    alignItems: "stretch",
   },
   fillGarbage: {
     alignSelf: "center",
-    width: 250,
-    height: 390,
-  },
-
-  bottom: {
-    //flex: 1,
-    //justifyContent: "flex-end",
-    //padding: 24,
-    backgroundColor: "lightblue",
+    width: 200,
+    height: 460,
   },
 });

@@ -1,14 +1,15 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, View } from "react-native";
-import React from "react";
+import {AppRegistry, StyleSheet, View } from "react-native";
+import React, {Component}  from "react";
 import Home from "./screens/Home";
 import Achievements from "./screens/Achievements";
 import Login from "./screens/Login";
 import UserSettings from "./screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,9 @@ function MyTabs() {
         activeTintColor: "#11402B",
         inactiveTintColor: "white",
         style: {
-          height: 55,
+          paddingTop: "2%",
+          paddingBottom: "5%",
+          height: "12%",
           backgroundColor: "#31A896",
         },
       }}
@@ -31,7 +34,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={30} />
+            <Icon name="home" color={color} size={40} />
             //30 eller size
           ),
         }}
@@ -43,7 +46,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Achievements",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="podium" color={color} size={30} />
+            <Icon name="podium" color={color} size={40} />
           ),
         }}
       />
@@ -54,7 +57,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Login",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="login" color={color} size={30} />
+            <Icon name="login" color={color} size={40} />
           ),
         }}
       />
@@ -65,7 +68,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="account" color={color} size={30} />
+            <Icon name="account" color={color} size={40} />
             //account-cog account-circle
           ),
         }}
@@ -81,3 +84,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+
+
+//AppRegistry.registerComponent('App', () => App);

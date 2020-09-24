@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  getPercentProgressToNextLevel,
-  getTrashRequiredForNextLevel,
-  getLevel,
-} from "../features/leveling";
-import { View, Text } from "react-native";
+import { getPercentProgressToNextLevel, getLevel } from "../features/leveling";
+import { Text } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 
 export default function UserLevel() {
@@ -29,9 +25,12 @@ export default function UserLevel() {
       color="#00D084"
       shadowColor="#C4DEF6"
       bgColor="#FFF"
+      testID="level-progress"
     >
       <Text style={{ fontSize: 14, color: "#607D8B" }}>level</Text>
-      <Text style={{ fontSize: 30 }}>{level}</Text>
+      <Text style={{ fontSize: 30 }} testID="level-text">
+        {level}
+      </Text>
     </ProgressCircle>
   );
 }

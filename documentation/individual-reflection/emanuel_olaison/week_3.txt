@@ -1,0 +1,14 @@
+What do I want to learn or understand better?
+  Since last week I've gotten a better understanding of scrum. 
+  I learned how the usaer stories should be designed from the consulting meeting.
+  I cannot come up with anything that I want to understand better in the course, other than the technologies we are working with.
+
+How can I help someone else, or the entire team, to learn something new?
+  I can share my knowlage when I have something valueble to share with the team. 
+
+What is my contribution towards the team’s use of Scrum?
+  I helped redesign our bad user-stories.
+  Next sprint we should write good user stories from the start.
+
+What is my contribution towards the team’s deliveries?
+  This sprtint me, Bashar and Benjamin built a component for tracking how much trash the user has collected.

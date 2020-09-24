@@ -3,16 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {AppRegistry, StyleSheet, View, Button } from "react-native";
 import React, {Component}  from "react";
-import Home from "./screens/Home";
-import Achievements from "./screens/Achievements";
-import Login from "./screens/Login";
-import UserSettings from "./screens/UserSettings";
+import Home from "./src/screens/Home";
+import Achievements from "./src/screens/Achievements";
+import Login from "./src/screens/Login";
+import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { StatusBar } from "expo-status-bar";
-import TrashRegister from "./src/components/TrashRegister";
-import { shareImage, shareText } from "./src/sharing";
-import { Asset } from "expo-asset";
+
 
 
 const Tab = createBottomTabNavigator();
@@ -84,45 +81,10 @@ function MyTabs() {
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-      <TrashRegister />
-      <StatusBar style="auto" />
-      <View style={styles.buttonContainer}>
-        <Button
-          style={styles.button}
-          title="Brag with image!"
-          onPress={() =>
-            shareImage(
-              Asset.fromModule(require("./assets/trash.png")).uri,
-              "Share your trash!"
-            )
-          }
-        />
-        <Button
-          style={styles.button}
-          title="Brag with text!"
-          onPress={() =>
-            shareText("I have collected so much trash, look at it!")
-          }
-        />
-      </View>
-    </View>
       <MyTabs />
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  button: {
-    margin: 10,
-  },
-});
+
+

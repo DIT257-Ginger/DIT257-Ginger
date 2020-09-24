@@ -1,28 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
 import {
-  StyleSheet, Text, View, SafeAreaView,
-  SectionList
-} from 'react-native';
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  SectionList,
+} from "react-native";
 import Constants from "expo-constants";
 
 const DATA = [
   {
     title: "User",
-    data: ["Username", "...", "..."]
+    data: ["Username", "...", "..."],
   },
   {
     title: "Email",
-    data: ["321@123.se"]
+    data: ["321@123.se"],
   },
   {
     title: "Manage Account",
-    data: ["Hacks"]
+    data: ["Hacks"],
   },
   {
     title: "Delete account",
-    data: ["Here"]
-  }
+    data: ["Here"],
+  },
 ];
 
 const Item = ({ title }) => (
@@ -44,25 +47,24 @@ export default function UserSettings({ navigaton }) {
       />
     </SafeAreaView>
   );
-
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   item: {
     backgroundColor: "#ADD8E6",
     padding: 20,
-    marginVertical: 8
+    marginVertical: 8,
   },
   header: {
     fontSize: 32,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24
-  }
+    fontSize: 24,
+  },
 });

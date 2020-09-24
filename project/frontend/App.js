@@ -1,18 +1,14 @@
-import 'react-native-gesture-handler';
-//import { NavigationContainer } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native';
-
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, View, Button, SafeAreaView } from "react-native";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import Home from './screens/Home';
-import Achievements from './screens/Achievements';
-import Login from './screens/Login';
-import UserSettings from './screens/UserSettings';
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Home from "./screens/Home";
+import Achievements from "./screens/Achievements";
+import Login from "./screens/Login";
+import UserSettings from "./screens/UserSettings";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,21 +17,22 @@ function MyTabs() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: 'brown',
+        activeTintColor: "#11402B",
+        inactiveTintColor: "white",
         style: {
           height: 55,
-          backgroundColor: 'lightblue'
-        }
+          backgroundColor: "#31A896",
+        },
       }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
+            <Icon name="home" color={color} size={30} />
+            //30 eller size
           ),
         }}
       />
@@ -44,9 +41,9 @@ function MyTabs() {
         name="Achievements"
         component={Achievements}
         options={{
-          tabBarLabel: 'Achievements',
+          tabBarLabel: "Achievements",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="account" color={color} size={size} />
+            <Icon name="podium" color={color} size={30} />
           ),
         }}
       />
@@ -55,19 +52,21 @@ function MyTabs() {
         name="Login"
         component={Login}
         options={{
-          tabBarLabel: 'Login',
+          tabBarLabel: "Login",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="camera" color={color} size={size} />
+            <Icon name="login" color={color} size={30} />
           ),
         }}
       />
       <Tab.Screen
         name="UserSettings"
+        //Profile eller Usere settings
         component={UserSettings}
         options={{
-          tabBarLabel: 'UserSettings',
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="share-variant" color={color} size={size} />
+            <Icon name="account" color={color} size={30} />
+            //account-cog account-circle
           ),
         }}
       />
@@ -75,24 +74,10 @@ function MyTabs() {
   );
 }
 
-//const Stack = createStackNavigator();
-
-
-
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
-    </SafeAreaView>
-
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-

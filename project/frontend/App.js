@@ -1,8 +1,8 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {AppRegistry, StyleSheet, View, Button } from "react-native";
-import React, {Component}  from "react";
+import { AppRegistry, StyleSheet, View, Button } from "react-native";
+import React, { Component } from "react";
 import Home from "./src/screens/Home";
 import Achievements from "./src/screens/Achievements";
 import Login from "./src/screens/Login";
@@ -10,8 +10,6 @@ import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
-
 
 const Tab = createBottomTabNavigator();
 
@@ -88,6 +86,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-
-

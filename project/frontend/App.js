@@ -9,6 +9,7 @@ import Login from "./src/screens/Login";
 import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -78,8 +79,10 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

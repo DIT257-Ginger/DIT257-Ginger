@@ -1,0 +1,22 @@
+What do I want to learn or understand better?
+  Last sprint I claimed that I did not know what I wanted to understand better but now I do.
+  I have a lot of problems with coming up with good tasks for user-stories.
+  It feels like the tasks I come up with are either so general that they are pointless or
+  that they are too restricting as they affect decisions which should be made when working on the user-story, not before.
+  I have asked about this during the weekly supervision but I did not get any wiser.
+  I think practice and googeling would help me understand.
+  
+  I would also like to understand what I should answer to the next question as my anwser to that question never feels useful.
+  I will ask during the next supervision meeting and on the discussion board. 
+
+How can I help someone else, or the entire team, to learn something new?
+  Same this as last report I guess.
+  I have shared some information with Sophia and Isabella to help them get the UI to look better.
+
+What is my contribution towards the team’s use of Scrum?
+  I helped write user stories and choose how we should work with them this sprint.
+
+What is my contribution towards the team’s deliveries?
+  This sprtint Bashar and I created a leveling system and a component for diplaying level and level-up progress.
+  I feel like I could have contibuted a bit more than I did this sprint as I did not spend a lot of time on the course this sprint.
+  Next week I should spend a bit more time on the course.

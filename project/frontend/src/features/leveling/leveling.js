@@ -1,8 +1,8 @@
 import { readTrashCount } from "../../persistence";
 
-trashToLevelFunction = (trash) => -0.5 + Math.sqrt(2 * trash + 0.25);
+const trashToLevelFunction = (trash) => -0.5 + Math.sqrt(2 * trash + 0.25);
 
-levelToTrashFunction = (level) => 0.5 * level + 0.5 * level * level;
+const levelToTrashFunction = (level) => 0.5 * level + 0.5 * level * level;
 
 /**
  * Takes trashcount and returns a level

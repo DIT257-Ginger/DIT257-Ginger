@@ -1,0 +1,30 @@
+name: Run frontend tests
+
+on:
+  push:
+    branches: [ $default-branch, github-actions-test ]
+    paths-ignore:
+    - 'documentation/**'
+  pull_request:
+    branches: [ $default-branch ]
+    paths-ignore:
+    - 'documentation/**'
+
+defaults:
+  run:
+    working-directory: project/frontend
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run npm test
+      run: npm test

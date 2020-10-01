@@ -1,7 +1,9 @@
+import { DarkTheme } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, Modal, Image, TouchableHighlight, Platform } from "react-native";
+import { getTrashTypes } from "../features/trashCollection";
 import { writeTrashCount, readTrashCount } from "../persistence";
-import UserLevel from "./UserLevel";
+import TrashRegistrationSelection from "./TrashRegistrationSelection";
 
 /**
  * Component for registering trash collected by user.
@@ -9,6 +11,8 @@ import UserLevel from "./UserLevel";
 export default function TrashRegister() {
   const [trashCount, setTrashCount] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(true);
 
   // Fetch initial trash count
   useEffect(() => {
@@ -29,51 +33,68 @@ export default function TrashRegister() {
     setTrashCount(0);
     await writeTrashCount(0);
   }
-
+  /*TODO
+  - fetch the input value of the collect popup.
+  - Multiply the value of the trash object and the amount of input value.
+  - Add the result to the trashbag count.
+  */
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <>
-          <UserLevel />
-          <Text style={styles.collectionText}>
-            You have collected {trashCount} bag(s) of trash!
-          </Text>
-          <Button
-            testID="increment-btn"
-            style={styles.button}
-            title="Press to collect another bag!"
-            onPress={onCollect}
-            color="#31A896"
-          />
-          <Button
-            testID="clear-btn"
-            style={styles.button}
-            title="Press to clear your collection!"
-            onPress={onClear}
-            color="#31A896"
-          />
-        </>
-      )}
-    </View>
+    <>
+      {Platform.OS !== "web" || modalVisible ? (
+        <Modal style={styles.modalContainer}
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <TrashRegistrationSelection setModalVisible={setModalVisible} />
+        </Modal>
+      ) : null}
+      <View style={styles.container}>
+        <Image
+          style={styles.garbageCanImage}
+          source={require("../../assets/idleGif.gif")}
+        />
+
+        <TouchableHighlight
+          style={styles.openButton}
+          onPress={() => {
+            setModalVisible(true);
+          }}>
+          <Text style={styles.textStyle}>Add Trash</Text>
+        </TouchableHighlight>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
   },
-  button: {
-    //changed to %
-    height: "70%",
-    alignItems: "center",
-    margin: "10%",
+  garbageCanImage: {
+    flexGrow: 1,
+    alignSelf: "center",
+    width: "45%",
+    height: "55%",
   },
-  collectionText: {
-    fontSize: 19,
+  openButton: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalContainer: {
+    width: "100%",
+    height: "100%",
+    alignItems: "stretch",
+    alignSelf: "center",
+    justifyContent: "space-between",
+  }
 });

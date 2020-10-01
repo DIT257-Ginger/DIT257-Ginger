@@ -13,7 +13,7 @@ export function getTrashTypes() {
 }
 
 /**
- * Constructor for trash type objects
+ * Constructor for objects representing a type of trash the user can collect
  */
 function TrashType(id, name, value) {
   this.id = id;

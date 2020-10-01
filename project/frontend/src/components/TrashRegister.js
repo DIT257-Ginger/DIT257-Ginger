@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { writeTrashCount, readTrashCount } from "../persistence";
 import UserLevel from "./UserLevel";
-
+import notifyAchivement from "../achivementHandling/NotifyAchivement";
 /**
  * Component for registering trash collected by user.
  */
@@ -23,6 +23,7 @@ export default function TrashRegister() {
   async function onCollect() {
     setTrashCount((prevTrash) => prevTrash + 1);
     await writeTrashCount(trashCount + 1);
+    notifyAchivement(trashCount + 1); //looks to update
   }
 
   async function onClear() {
@@ -62,13 +63,10 @@ export default function TrashRegister() {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
-    //changed to %
     height: "70%",
     alignItems: "center",
     margin: "10%",

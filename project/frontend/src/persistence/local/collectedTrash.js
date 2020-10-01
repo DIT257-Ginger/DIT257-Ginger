@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import { TrashCollectionEntry } from "../../features/trashCollection";
+import TrashCollectionEntry from "../../features/trashCollection/TrashCollectionEntry";
 
 const COLLECTED_TRASH_KEY = "collected_trash";
 

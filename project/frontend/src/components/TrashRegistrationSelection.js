@@ -1,34 +1,58 @@
 import React, { useState } from 'react';
 import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View, FlatList, Image, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { getTrashTypes } from "../features/trashCollection";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { collect, getTrashTypes } from "../features/trashCollection";
 import InputSpinner from "react-native-input-spinner";
 
-export default function TrashRegistrationSelection({ setModalVisible }) {
-  const trashTypes = getTrashTypes();
+export default function TrashRegistrationSelection({ setModalVisible, onTrashCollected }) {
+  const defaultTrash = getTrashTypes().reduce((trashValObj, type) => {
+    trashValObj[type.id] = 0;
+    return trashValObj;
+  }, {});
 
-  const test = {
-    id: type.id,
-    amount: 0,
-  };
-  const defaultTrash = trashTypes.map(type => (
-    {
-      id: type.id,
-      amount: 0,
+  const [currentTrash, setCurrentTrash] = useState(defaultTrash);
+
+  function updateAmount(type, amount) {
+    console.log(type + " " + amount);
+    setCurrentTrash(prevTrash => (
+      {
+        ...prevTrash,
+        [type]: amount
+      }
+    ));
+  }
+
+  async function onCollectPopup() {
+    console.log(currentTrash);
+    for (const type in currentTrash) {
+      const amount = currentTrash[type];
+      console.log(type + " " + amount);
+      if (amount > 0) {
+        await collect(type, amount);
+      }
     }
-  ));
+    if (onTrashCollected) {
+      await onTrashCollected();
+    }
+    setModalVisible(false);
+  }
   
-  const [selectedTrash, setSelectedTrash] = useState();
-
   return (
     <View style={styles.modalBackground}>
       <View style={styles.modalBox}>
         <View style={styles.listContainer}>
           <FlatList
-            data={trashTypes}
+            data={getTrashTypes()}
             keyExtractor={a => a.id}
-            renderItem={({item}) => <TrashRow title={item.name} image={item.image} />}
+            renderItem={({item}) => (
+              <TrashRow
+                id={item.id}
+                title={item.name}
+                image={item.image}
+                amount={item.amount}
+                onTrashAmountChanged={num => updateAmount(item.id, num)}
+              />
+            )}
             style={{overflow: "hidden"}}
           />
         </View>
@@ -42,9 +66,7 @@ export default function TrashRegistrationSelection({ setModalVisible }) {
           </TouchableHighlight>
           <TouchableHighlight
             style={ styles.collectBtn }
-            onPress={() => {
-              setModalVisible(false);
-            }}>
+            onPress={onCollectPopup}>
             <Text style={styles.collectBtnText}>Collect</Text>
           </TouchableHighlight>
         </View>
@@ -53,7 +75,7 @@ export default function TrashRegistrationSelection({ setModalVisible }) {
   );
 }
 
-const TrashRow = ({title, image, id}) => (
+const TrashRow = ({title, image, amount, onTrashAmountChanged}) => (
   <View style={styles.trashRow}>
     <Image source={image} style={styles.trashRowIcon} />
     <Text style={styles.trashRowTitle}>{title}</Text>
@@ -63,17 +85,12 @@ const TrashRow = ({title, image, id}) => (
       step={1}
       //colorMax={"#f04048"}
       //colorMin={"#40c5f4"}
-      value={10}
-      onChange={(num) => {
-        console.log(num);
-      }}
+      value={amount}
+      onChange={onTrashAmountChanged}
       style={styles.trashCountInput}
-      
     />
   </View>
 );
-
-
 
 const styles = StyleSheet.create({
   modalBackground: {

@@ -1,5 +1,5 @@
-import { getTrashTypes } from ".";
-import { TrashCollectionEntry } from ".";
+import { getTrashTypes } from "./trashTypes";
+import { TrashCollectionEntry } from "./TrashCollectionEntry";
 import {
   pushToCollectedTrash,
   readCollectedTrash,

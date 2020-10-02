@@ -6,7 +6,6 @@ on:
     paths-ignore:
     - 'documentation/**'
   pull_request:
-    branches: [ $default-branch ]
     paths-ignore:
     - 'documentation/**'
 

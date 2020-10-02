@@ -7,9 +7,12 @@ import { allAchievements } from "../achivementHandling/AllAchievements";
 import { aquireAchievement } from "../achivementHandling/NotifyAchivement";
 import { render } from "react-dom";
 
+//this function needs to be turned async -> all view-objects has to go?
 export default function Achievements({ navigaton }) {
   // TODO: Figure out how to get user's collection status here
-  const collectedAchievements = aquireAchievement();
+
+  var collectedAchievements = aquireAchievement();
+  console.log(collectedAchievements);
 
   const displayedAchivements = allAchievements.map((achievement) => {
     return {
@@ -18,6 +21,7 @@ export default function Achievements({ navigaton }) {
       //collected: collectedAchievements.includes(allAchievements.id),
     };
   });
+
   return (
     <View style={styles.screenContainer}>
       <Header

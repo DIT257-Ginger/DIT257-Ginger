@@ -18,6 +18,7 @@ export default function NotifyAchivement(trashCount) {
 /**
  * Puts aquired achievements in list if not already in list.
  */
+
 export async function aquireAchievement() {
   var lst = [];
   var stored = await readCollectedAchievements();
@@ -31,10 +32,16 @@ export async function aquireAchievement() {
       lst.push(allAchievements[i]);
     }
   }
+  //if the lst has achievements that are not stored yet
   if (lst.toString() !== stored.toString()) {
-    await writeCollectedAchievements(lst);
-    return lst;
+    console.log(stored);
+    await new writeCollectedAchievements(lst);
+
+    //return lst;
+    //if all elements are stored
   } else {
-    return stored;
+    console.log("this is list length: ");
+    console.log(lst.length);
   }
+  return lst;
 }

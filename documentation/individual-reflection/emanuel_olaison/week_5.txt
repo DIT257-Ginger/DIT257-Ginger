@@ -1,0 +1,15 @@
+What do I want to learn or understand better?
+  Same as last week, I am not any smarter when it comes to how to break down user-stories into tasks.
+
+How can I help someone else, or the entire team, to learn something new?
+  Same this as last reflection I guess.
+
+What is my contribution towards the team’s use of Scrum?
+  I helped write user stories and choose how we should work with them this sprint.
+
+What is my contribution towards the team’s deliveries?
+  This sprint I modified how the garbage collection is handled and stored by the app.
+  Collected trash is now logged for each collection and includes a time-stamp as well as a trash type.
+  Trash collection can also be undone which is helpful if a user adds more trash than they have collected.
+  I wanted to get more work done but the new garbage collection system took more time than expected
+  so I did not have the time to start working on anything else.

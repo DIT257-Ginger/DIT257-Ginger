@@ -23,3 +23,11 @@ export async function readTrashCount() {
 
   return JSON.parse(trashString);
 }
+
+/**
+ * Increments the locally stored persistent trash count
+ * @param {number} amount - how much to increment trash count
+ */
+export async function incrementTrashCount(amount) {
+  await writeTrashCount(await readTrashCount() + amount)
+}

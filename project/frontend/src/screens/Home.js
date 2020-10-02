@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Text, View, Image, StatusBar, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  StatusBar,
+  Button,
+  Dimensions,
+} from "react-native";
 import Achievements from "./Achievements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons";
@@ -10,11 +18,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import TrashRegister from "../components/TrashRegister";
 import { shareImage, shareText } from "../sharing";
 import { Asset } from "expo-asset";
+import UserLevel from "../components/UserLevel";
+import { getLevel } from "../features/leveling";
 
 export default function Home({ navigation }) {
+  const dimension = Dimensions.get("screen");
+  const screenWidth = dimension.width / 2;
+  const [leveling, levelUser] = useState(0);
+
   return (
     //safeareaview seer lite skumt ut med background color?
-
     <SafeAreaView
       style={{ flex: 1 }}
       backgroundColor="#31A896"
@@ -22,11 +35,14 @@ export default function Home({ navigation }) {
     >
       <View style={styles.container}>
         <View style={styles.top}>
-          <View style={{ paddingTop: 12, paddingHorizontal: 30 }}>
-            <Text style={{ fontSize: 25, fontWeight: "bold" }}>Anon</Text>
-            <Text style={{ fontSize: 20 }}>Lv. 8</Text>
-          </View>
+          <View style={{ width: 80 }}></View>
+          <Image
+            style={styles.appLogo}
+            source={require("../../assets/pickit5.png")}
+          />
+          <UserLevel style={styles.userLevel} />
         </View>
+
         <View style={styles.middle}>
           <Image
             style={styles.fillGarbage}
@@ -68,8 +84,10 @@ const styles = StyleSheet.create({
   },
   top: {
     flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "#31A896",
-    height: "15%",
+    height: 100,
+    paddingHorizontal: 5,
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
   },
@@ -94,5 +112,12 @@ const styles = StyleSheet.create({
     //},
     //button: {
     // margin: 10,
+  },
+
+  appLogo: {
+    flexDirection: "row",
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
   },
 });

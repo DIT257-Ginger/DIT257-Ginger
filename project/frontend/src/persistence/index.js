@@ -1,1 +1,10 @@
-export { writeTrashCount, readTrashCount } from "./local/trashCount";
+export {
+  writeTrashCount,
+  readTrashCount,
+  incrementTrashCount,
+} from "./local/trashCount";
+export {
+  readCollectedTrash,
+  writeCollectedTrash,
+  pushToCollectedTrash,
+} from "./local/collectedTrash";

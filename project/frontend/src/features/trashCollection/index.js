@@ -1,3 +1,8 @@
+export { getTrashTypes } from "./trashTypes";
+export { TrashCollectionEntry } from "./TrashCollectionEntry";
 export {
-  getTrashTypes
-} from "./trashTypes";
+  collect,
+  refreshTrashCount,
+  undoLastCollect,
+  undoCollectsFrom,
+} from "./trashCollection";

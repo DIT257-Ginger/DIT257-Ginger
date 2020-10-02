@@ -15,7 +15,7 @@ export default function Login({ navigaton }) {
     <View style={styles.container}>
       <View style={{ paddingBottom: 40 }}>
         <Image
-          source={require("../../assets/leaflogo_1.png")}
+          source={require("../../assets/pickit5.png")}
           style={{ width: 130, height: 120 }}
         />
       </View>

@@ -2,16 +2,20 @@ import React from "react";
 import { StyleSheet, Text, View, Image, StatusBar, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TrashRegister from "../components/TrashRegister";
+import UserLevel from "../components/UserLevel";
+
 
 export default function Home({ navigation }) {
   return (
       <View style={styles.container}>
         <View style={styles.top}>
           <SafeAreaView>
-            <View style={{ paddingTop: 12, paddingHorizontal: 30 }}>
-              <Text style={{ fontSize: 25, fontWeight: "bold" }}>Anon</Text>
-              <Text style={{ fontSize: 20 }}>Lv. 8</Text>
-            </View>
+            <View style={{ width: 80 }}></View>
+            <Image
+              style={styles.appLogo}
+              source={require("../../assets/pickit5.png")}
+            />
+            <UserLevel style={styles.userLevel} />
           </SafeAreaView>
         </View>
         <View style={styles.contents}>
@@ -28,12 +32,21 @@ const styles = StyleSheet.create({
   },
   top: {
     flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "#31A896",
-    height: "15%",
+    height: 100,
+    paddingHorizontal: 5,
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
   },
   contents: {
     flex: 1,
+  },
+
+  appLogo: {
+    flexDirection: "row",
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
   },
 });

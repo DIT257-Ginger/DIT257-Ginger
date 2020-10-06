@@ -1,24 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProgressCircle from "react-native-progress-circle";
 import { allAchievements } from "../achivementHandling/AllAchievements";
-import { aquireAchievement } from "../achivementHandling/NotifyAchivement";
-import { render } from "react-dom";
+import {
+  aquireAchievement,
+  achivementSignaler,
+  notifyAchivement,
+} from "../achivementHandling/NotifyAchivement";
+import { readTrashCount } from "../persistence";
 
 //this function needs to be turned async -> all view-objects has to go?
-export default function Achievements({ navigaton }) {
+export function Achievements({ navigaton }) {
   // TODO: Figure out how to get user's collection status here
+  //var collectedAchievements = aquireAchievement();
+  //console.log(collectedAchievements);
 
-  var collectedAchievements = aquireAchievement();
-  console.log(collectedAchievements);
+  const [collectedAchievements, setcollectedAchievements] = useState([]);
+
+  async function fetchAchievement() {
+    await notifyAchivement(await readTrashCount()); //should be simple getAchievements()
+    const achievements = await aquireAchievement();
+    setcollectedAchievements(achievements);
+  }
+
+  // achivementSignaler.functions.push(fetchAchievement);
+
+  // Fetch initial trash count
+  useEffect(() => {
+    fetchAchievement();
+  }, []);
 
   const displayedAchivements = allAchievements.map((achievement) => {
     return {
       ...achievement,
-      collected: allAchievements.hasAquired == true,
-      //collected: collectedAchievements.includes(allAchievements.id),
+      //collected: allAchievements.hasAquired == true,
+      collected: collectedAchievements.includes(allAchievements.id),
     };
   });
 

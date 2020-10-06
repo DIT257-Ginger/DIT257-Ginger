@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AppRegistry, StyleSheet, View, Button } from "react-native";
 import React, { Component } from "react";
 import Home from "./src/screens/Home";
-import Achievements from "./src/screens/Achievements";
+import { Achievements } from "./src/screens/Achievements";
 import Login from "./src/screens/Login";
 import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -35,7 +35,6 @@ function MyTabs() {
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={40} />
-            //30 eller size
           ),
         }}
       />
@@ -63,7 +62,6 @@ function MyTabs() {
       />
       <Tab.Screen
         name="UserSettings"
-        //Profile eller Usere settings
         component={UserSettings}
         options={{
           tabBarLabel: "Profile",

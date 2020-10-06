@@ -4,12 +4,28 @@ import {
   readCollectedAchievements,
 } from "./AchivementStorage";
 
-export default function NotifyAchivement(trashCount) {
+export const achivementSignaler = {
+  functions: [],
+  signal: async () => {
+    this.functions.forEach(async (f) => await f());
+  },
+};
+
+/**
+ * TODO
+ * Called when fetching the locally stored achivements.
+ * @param {Promise<Number>} trashCount
+ *
+ */
+export async function notifyAchivement(trashCount) {
+  console.log("The current trashCount is: ");
+  console.log(trashCount);
   for (var i = 0; i < allAchievements.length; i++) {
     if (allAchievements[i].condition <= Number(trashCount.toString())) {
       allAchievements[i].hasAquired = true;
+      console.log(allAchievements[i]);
     } else {
-      //console.log("Keep picking, you'll get there.");
+      //console.log(trashCount);
     }
   }
   aquireAchievement();
@@ -18,11 +34,12 @@ export default function NotifyAchivement(trashCount) {
 /**
  * Puts aquired achievements in list if not already in list.
  */
-
+//one func for get from storage and one for updating achievements
+//change storage to {id: x, hasCollected: true}
 export async function aquireAchievement() {
   var lst = [];
-  var stored = await readCollectedAchievements();
-  console.log("Contents of the memory: ");
+  const stored = await readCollectedAchievements();
+  console.log("Granted achievements collected from memory: ");
   console.log(stored.length);
   for (var i = 0; i < allAchievements.length; i++) {
     if (
@@ -35,12 +52,14 @@ export async function aquireAchievement() {
   //if the lst has achievements that are not stored yet
   if (lst.toString() !== stored.toString()) {
     console.log(stored);
-    await new writeCollectedAchievements(lst);
-
+    await writeCollectedAchievements(lst);
+    console.log("New achievements granted! ");
+    // await achivementSignaler.signal();
     //return lst;
-    //if all elements are stored
+    //call achivements.js to reload
+    //call object with all functions
   } else {
-    console.log("this is list length: ");
+    console.log("No new achievements granted: ");
     console.log(lst.length);
   }
   return lst;

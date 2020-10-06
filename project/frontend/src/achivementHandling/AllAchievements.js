@@ -10,7 +10,7 @@ const allAchievements = [
     secret: false,
     title: "Good start 👏",
     description: "Collect 10 bags of trash",
-    condition: 10, //10 bags of trash
+    condition: 10, //TODO [type,ammount]
     icon: require("../../assets/trash.png"),
   },
   {

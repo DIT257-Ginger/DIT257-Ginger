@@ -15,7 +15,6 @@ import { getTrashTypes } from "../features/trashCollection";
 import { writeTrashCount, readTrashCount } from "../persistence";
 import TrashRegistrationSelection from "./TrashRegistrationSelection";
 import Icon from "react-native-vector-icons/FontAwesome";
-import notifyAchivement from "../achivementHandling/NotifyAchivement";
 
 /**
  * Component for registering trash collected by user.
@@ -40,7 +39,6 @@ export default function TrashRegister() {
   async function onCollect() {
     setTrashCount((prevTrash) => prevTrash + 1);
     await writeTrashCount(trashCount + 1);
-    notifyAchivement(trashCount + 1); //looks to update
   }
 
   async function onClear() {

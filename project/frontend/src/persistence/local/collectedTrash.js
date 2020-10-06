@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import TrashCollectionEntry from "../../features/trashCollection/TrashCollectionEntry";
+import { TrashCollectionEntry } from "../../features/trashCollection/TrashCollectionEntry";
 
 const COLLECTED_TRASH_KEY = "collected_trash";
 
@@ -20,7 +20,9 @@ export async function readCollectedTrash() {
     return [];
   }
 
-  return JSON.parse(collectedTrashString);
+  return JSON.parse(collectedTrashString).map((obj) =>
+    Object.assign(new TrashCollectionEntry(), obj)
+  );
 }
 
 /**

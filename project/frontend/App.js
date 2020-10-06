@@ -10,6 +10,11 @@ import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import * as Localization from "expo-localization";
+import moment from "moment";
+
+// Setup locale for date and time formatting
+moment.locale(Localization.locales);
 
 const Tab = createBottomTabNavigator();
 

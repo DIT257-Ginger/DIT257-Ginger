@@ -7,7 +7,7 @@ import {
   writeTrashCount,
   incrementTrashCount,
 } from "../../persistence";
-import { notifyAchivement } from "../../achivementHandling/NotifyAchivement";
+import { notifyAchievement } from "../achievements/";
 
 const trashValues = getTrashTypes().reduce((trashValObj, type) => {
   trashValObj[type.id] = type.value;
@@ -29,7 +29,7 @@ export async function collect(type, amount) {
   await pushToCollectedTrash(newTrash);
   const value = getValue(newTrash);
   await incrementTrashCount(value);
-  notifyAchivement(await calculateTrashCount()); //signals change
+  notifyAchievement(await calculateTrashCount()); //signals change
 }
 
 /**

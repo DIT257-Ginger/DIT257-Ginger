@@ -9,16 +9,18 @@ const ACHIEVEMENT_STORAGE_KEY = "achievementList";
 export async function writeCollectedAchievements(achievementList) {
   const achievementString = JSON.stringify(achievementList);
   await AsyncStorage.setItem(ACHIEVEMENT_STORAGE_KEY, achievementString);
-  //console.log("ITEM ADDED TO STORAGE: ");
-  //console.log(achievementList);
 }
 
 export async function readCollectedAchievements() {
   const achievementString = await AsyncStorage.getItem(ACHIEVEMENT_STORAGE_KEY);
   if (achievementString === null || JSON.parse(achievementString) === null) {
-    return 0;
+    return [];
   }
-  //console.log("ITEMS RETRIEVED FROM STORAGE: ");
-  //console.log(achievementString);
   return JSON.parse(achievementString);
+}
+
+export async function pushCollected(item) {
+  const collected = await readCollectedAchievements();
+  collected.push(item);
+  await writeCollectedAchievements(collected);
 }

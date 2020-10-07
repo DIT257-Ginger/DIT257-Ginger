@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProgressCircle from "react-native-progress-circle";
-import { allAchievements } from "../achivementHandling/AllAchievements";
+import { allAchievements } from "../features/achievements/AllAchievements";
 import {
-  aquireAchievement,
-  achivementSignaler,
-  notifyAchivement,
-} from "../achivementHandling/NotifyAchivement";
+  acquireAchievement,
+  notifyAchievement,
+  getAchievements,
+} from "../features/achievements/";
+import { AchievementGainedSignaler } from "../features/achievements/";
 import { readTrashCount } from "../persistence";
 
 //this function needs to be turned async -> all view-objects has to go?
@@ -18,24 +19,37 @@ export function Achievements({ navigaton }) {
   //console.log(collectedAchievements);
 
   const [collectedAchievements, setcollectedAchievements] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
-  async function fetchAchievement() {
-    await notifyAchivement(await readTrashCount()); //should be simple getAchievements()
-    const achievements = await aquireAchievement();
-    setcollectedAchievements(achievements);
+  function reload() {
+    setLoaded(false);
   }
 
-  // achivementSignaler.functions.push(fetchAchievement);
+  AchievementGainedSignaler.subscribe(reload, false);
 
-  // Fetch initial trash count
-  useEffect(() => {
+  async function fetchAchievement() {
+    await notifyAchievement(await readTrashCount()); //should be simple getAchievements()
+
+    const achievements = await acquireAchievement(); //should map them to allAchievements.id
+    //const achievements = await getAchievements();
+    setcollectedAchievements(achievements);
+    setLoaded(true);
+  }
+
+  if (!loaded) {
     fetchAchievement();
-  }, []);
+  }
+
+  // Fetch initial achievements
+  //useEffect(() => {
+  //  fetchAchievement();
+  //
+  //}, []);
 
   const displayedAchivements = allAchievements.map((achievement) => {
     return {
       ...achievement,
-      //collected: allAchievements.hasAquired == true,
+      //collected: allAchievements.hasAcquired == true,
       collected: collectedAchievements.includes(allAchievements.id),
     };
   });

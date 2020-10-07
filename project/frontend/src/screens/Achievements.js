@@ -4,20 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProgressCircle from "react-native-progress-circle";
 import { allAchievements } from "../features/achievements/AllAchievements";
-import {
-  acquireAchievement,
-  notifyAchievement,
-  getAchievements,
-} from "../features/achievements/";
+import { getAchievements } from "../features/achievements/";
 import { AchievementGainedSignaler } from "../features/achievements/";
-import { readTrashCount } from "../persistence";
 
-//this function needs to be turned async -> all view-objects has to go?
 export function Achievements({ navigaton }) {
-  // TODO: Figure out how to get user's collection status here
-  //var collectedAchievements = aquireAchievement();
-  //console.log(collectedAchievements);
-
   const [collectedAchievements, setcollectedAchievements] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -28,10 +18,7 @@ export function Achievements({ navigaton }) {
   AchievementGainedSignaler.subscribe(reload, false);
 
   async function fetchAchievement() {
-    await notifyAchievement(await readTrashCount()); //should be simple getAchievements()
-
-    const achievements = await acquireAchievement(); //should map them to allAchievements.id
-    //const achievements = await getAchievements();
+    const achievements = await getAchievements();
     setcollectedAchievements(achievements);
     setLoaded(true);
   }
@@ -49,8 +36,10 @@ export function Achievements({ navigaton }) {
   const displayedAchivements = allAchievements.map((achievement) => {
     return {
       ...achievement,
-      //collected: allAchievements.hasAcquired == true,
-      collected: collectedAchievements.includes(allAchievements.id),
+      collected: collectedAchievements.some(
+        (item) => item.id === achievement.id
+      ),
+      //collected: collectedAchievements.includes(allAchievements.id),
     };
   });
 

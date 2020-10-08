@@ -5,4 +5,5 @@ export {
   refreshTrashCount,
   undoLastCollect,
   undoCollectsFrom,
+  calculateTrashCountOfType,
 } from "./trashCollection";

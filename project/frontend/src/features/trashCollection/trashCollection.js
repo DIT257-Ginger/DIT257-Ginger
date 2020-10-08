@@ -29,7 +29,7 @@ export async function collect(type, amount) {
   await pushToCollectedTrash(newTrash);
   const value = getValue(newTrash);
   await incrementTrashCount(value);
-  notifyAchievement(await calculateTrashCount()); //signals change
+  notifyAchievement(await readCollectedTrash()); //signals change
 }
 
 /**

@@ -14,8 +14,8 @@ export const AchievementGainedSignaler = {
   },
   handlers: [],
   signal: (id) => {
-    console.log("AchievementGainedSignaler functions:");
-    console.log(this);
+    //console.log("AchievementGainedSignaler functions:");
+    //console.log(this);
     AchievementGainedSignaler.handlers.forEach((item) => {
       if (item.callWithId) {
         item.fn(id);

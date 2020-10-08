@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "react-native-get-random-values"; // Needed for uuids
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppRegistry, StyleSheet, View, Button } from "react-native";
@@ -7,6 +8,7 @@ import Home from "./src/screens/Home";
 import Achievements from "./src/screens/Achievements";
 import Login from "./src/screens/Login";
 import UserSettings from "./src/screens/UserSettings";
+import History from "./src/screens/History";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -21,7 +23,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="History"
       tabBarOptions={{
         activeTintColor: "#11402B",
         inactiveTintColor: "white",
@@ -75,6 +77,16 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <Icon name="account" color={color} size={40} />
             //account-cog account-circle
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={History}
+        options={{
+          tabBarLabel: "History",
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="account" color={color} size={40} />
           ),
         }}
       />

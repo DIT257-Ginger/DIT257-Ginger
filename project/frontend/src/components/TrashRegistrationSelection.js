@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View, FlatList, Image, Button } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React, { useState } from "react";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+  FlatList,
+  Image,
+  Button,
+} from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 import { collect, getTrashTypes } from "../features/trashCollection";
 import InputSpinner from "react-native-input-spinner";
 
-export default function TrashRegistrationSelection({ setModalVisible, onTrashCollected }) {
+export default function TrashRegistrationSelection({
+  setModalVisible,
+  onTrashCollected,
+}) {
   const defaultTrash = getTrashTypes().reduce((trashValObj, type) => {
     trashValObj[type.id] = 0;
     return trashValObj;
@@ -14,12 +27,10 @@ export default function TrashRegistrationSelection({ setModalVisible, onTrashCol
 
   function updateAmount(type, amount) {
     console.log(type + " " + amount);
-    setCurrentTrash(prevTrash => (
-      {
-        ...prevTrash,
-        [type]: amount
-      }
-    ));
+    setCurrentTrash((prevTrash) => ({
+      ...prevTrash,
+      [type]: amount,
+    }));
   }
 
   async function onCollectPopup() {
@@ -36,37 +47,39 @@ export default function TrashRegistrationSelection({ setModalVisible, onTrashCol
     }
     setModalVisible(false);
   }
-  
+
   return (
     <View style={styles.modalBackground}>
       <View style={styles.modalBox}>
         <View style={styles.listContainer}>
           <FlatList
             data={getTrashTypes()}
-            keyExtractor={a => a.id}
-            renderItem={({item}) => (
+            keyExtractor={(a) => a.id}
+            renderItem={({ item }) => (
               <TrashRow
                 id={item.id}
                 title={item.name}
                 image={item.image}
                 amount={item.amount}
-                onTrashAmountChanged={num => updateAmount(item.id, num)}
+                onTrashAmountChanged={(num) => updateAmount(item.id, num)}
               />
             )}
-            style={{overflow: "hidden"}}
+            style={{ overflow: "hidden" }}
           />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
-            style={ styles.cancelBtn }
+            style={styles.cancelBtn}
             onPress={() => {
               setModalVisible(false);
-            }}>
+            }}
+          >
             <Text style={styles.cancelBtnText}>Cancel</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            style={ styles.collectBtn }
-            onPress={onCollectPopup}>
+            style={styles.collectBtn}
+            onPress={onCollectPopup}
+          >
             <Text style={styles.collectBtnText}>Collect</Text>
           </TouchableHighlight>
         </View>
@@ -75,7 +88,7 @@ export default function TrashRegistrationSelection({ setModalVisible, onTrashCol
   );
 }
 
-const TrashRow = ({title, image, amount, onTrashAmountChanged}) => (
+const TrashRow = ({ title, image, amount, onTrashAmountChanged }) => (
   <View style={styles.trashRow}>
     <Image source={image} style={styles.trashRowIcon} />
     <Text style={styles.trashRowTitle}>{title}</Text>
@@ -129,9 +142,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   trashRowIcon: {
-    height: 50,
     flexBasis: 50,
     aspectRatio: 1,
+    resizeMode: "contain",
   },
   trashRowTitle: {
     flexBasis: 50,
@@ -143,32 +156,32 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   buttonContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   cancelBtn: {
     flex: 1,
     marginRight: 15,
     padding: 10,
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
     borderRadius: 20,
     elevation: 2,
   },
   cancelBtnText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   collectBtn: {
     flex: 1,
     marginLeft: 15,
     padding: 10,
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
     borderRadius: 20,
     elevation: 2,
   },
   collectBtnText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { getTrashTypes } from "../features/trashCollection";
+import * as trashCollection from "../features/trashCollection";
 import { readCollectedTrash } from "../persistence";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const trashTypesById = getTrashTypes().reduce((trashValObj, type) => {
-  trashValObj[type.id] = type;
-  return trashValObj;
-}, {});
+const trashTypesById = trashCollection
+  .getTrashTypes()
+  .reduce((trashValObj, type) => {
+    trashValObj[type.id] = type;
+    return trashValObj;
+  }, {});
 
 export default function TrashHistoryList({ ...props }) {
   const [collectedTrash, setCollectedTrash] = useState([]);
 
   useEffect(() => {
-    async function loadCollectedTrash() {
-      const trash = await readCollectedTrash();
-      setCollectedTrash(trash);
-    }
     loadCollectedTrash();
   }, []);
 
+  async function loadCollectedTrash() {
+    const trash = await readCollectedTrash();
+    setCollectedTrash(trash);
+  }
+
+  async function deleteTrash(id) {
+    console.log(id);
+    await trashCollection.undoCollect(id);
+    await loadCollectedTrash();
+  }
+
   const displayedTrash = collectedTrash.map((entry) => ({
+    id: entry.id,
     name: trashTypesById[entry.type].name,
     amount: entry.amount,
     time: new Date(entry.time),
@@ -33,22 +43,21 @@ export default function TrashHistoryList({ ...props }) {
     <FlatList
       {...props}
       data={displayedTrash}
-      keyExtractor={
-        (item) => `${item.time.getTime()}${item.name}${item.amount}` // Hack since there is no unique ID per collection entry
-      }
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TrashRow
           name={item.name}
           amount={item.amount}
           time={item.time}
           icon={item.icon}
+          onDeletePressed={() => deleteTrash(item.id)}
         />
       )}
     />
   );
 }
 
-const TrashRow = ({ name, amount, time, icon }) => (
+const TrashRow = ({ name, amount, time, icon, onDeletePressed }) => (
   <View style={styles.trashRow}>
     <View style={styles.trashIconContainer}>
       <Image source={icon} style={styles.trashIcon} />
@@ -60,9 +69,9 @@ const TrashRow = ({ name, amount, time, icon }) => (
       </View>
       <Text style={styles.trashTime}>{moment(time).calendar()}</Text>
     </View>
-    {/* <TouchableOpacity style={styles.undoButton} underlayColor={"black"}>
+    <TouchableOpacity style={styles.undoButton} onPress={onDeletePressed}>
       <Icon name={"delete"} color={"white"} size={20} />
-    </TouchableOpacity> */}
+    </TouchableOpacity>
   </View>
 );
 

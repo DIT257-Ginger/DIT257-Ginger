@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
   achievementIcon: {
     width: "100%",
     height: "100%",
+    resizeMode: "contain",
   },
   achievementIconSecret: {
     color: "rgba(0,0,0,0.3)"

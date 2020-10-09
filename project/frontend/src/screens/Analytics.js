@@ -12,7 +12,6 @@ import collectedTrash, {
 } from "../persistence/local/collectedTrash";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { render } from "react-dom";
-import Images from "../../../frontend/assets/trashTypesImages";
 import { max, set, Value } from "react-native-reanimated";
 import { readTrashCount } from "../persistence";
 import {

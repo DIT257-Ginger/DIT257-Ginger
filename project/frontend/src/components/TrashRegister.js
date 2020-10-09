@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Button,
   Modal,
   Image,
   TouchableHighlight,

@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   trashRowIcon: {
-    height: 50,
     flexBasis: 50,
     aspectRatio: 1,
+    resizeMode: "contain",
   },
   trashRowTitle: {
     flexBasis: 50,

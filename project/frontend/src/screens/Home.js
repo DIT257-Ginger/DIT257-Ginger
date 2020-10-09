@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import TrashRegister from "../components/TrashRegister";
 import UserLevel from "../components/UserLevel";
 
-
 export default function Home({ navigation }) {
   const [trashCount, setTrashCount] = useState(0);
 
@@ -26,6 +25,7 @@ export default function Home({ navigation }) {
           <TrashRegister onTrashCountChanged={setTrashCount} />
         </View>
       </View>
+    </View>
   );
 }
 
@@ -45,9 +45,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   appLogo: {
-    flexDirection: "row",
-    width: 100,
-    height: 100,
+    //flexDirection: "row",
+    //alignContent: "center",
+    //width: "40%",
+    height: "100%",
+
     resizeMode: "contain",
   },
   userLevel: {

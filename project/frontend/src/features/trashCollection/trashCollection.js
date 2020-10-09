@@ -58,6 +58,25 @@ async function calculateTrashCount() {
 }
 
 /**
+ * Calculates sum of persistent collected trash amount of certain type.
+ * @param   {String} type - id of trash type to collect
+ * @returns {Promise<Number>} - sum of persistent collected trash type.
+ */
+export async function calculateTrashCountOfType(typeId) {
+  const collectedTrash = await readCollectedTrash();
+  if (collectedTrash.length === 0) {
+    return 0;
+  }
+  const collectedTrashOfType = collectedTrash.filter(
+    (entry) => entry.type === typeId
+  );
+  const collectedTrashValues = collectedTrashOfType.map(
+    (trashCount) => trashCount.amount
+  );
+  return collectedTrashValues.reduce((a, b) => a + b, 0);
+}
+
+/**
  * Removes a specific collection entry from persistent collected trash and
  * updates persistent trash count accordingly.
  * @param {String} id - the ID of the trash collection entry to undo

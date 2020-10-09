@@ -8,25 +8,23 @@ export default function Home({ navigation }) {
   const [trashCount, setTrashCount] = useState(0);
 
   return (
-      <View style={styles.container}>
-        <View style={styles.top}>
-          <SafeAreaView>
-            <View style={styles.headerRow}>
-              <View style={{ width: 80 }}></View>
-              <Image
-                style={styles.appLogo}
-                source={require("../../assets/pickit5.png")}
-              />
-              <UserLevel trashCount={trashCount} style={styles.userLevel} />
-            </View>
-          </SafeAreaView>
-        </View>
-        <View style={styles.contents}>
-          <TrashRegister onTrashCountChanged={setTrashCount} />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.top}>
+        <SafeAreaView>
+          <View style={styles.headerRow}>
+            <View style={{ width: 80 }}></View>
+            <Image
+              style={styles.appLogo}
+              source={require("../../assets/pickit5.png")}
+            />
+            <UserLevel trashCount={trashCount} style={styles.userLevel} />
+          </View>
+        </SafeAreaView>
       </View>
-    </View>
-  );
+      <View style={styles.contents}>
+        <TrashRegister onTrashCountChanged={setTrashCount} />
+      </View>
+    </View>);
 }
 
 const styles = StyleSheet.create({

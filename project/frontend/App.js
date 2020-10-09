@@ -7,10 +7,12 @@ import React, { Component } from "react";
 import Home from "./src/screens/Home";
 import { Achievements } from "./src/screens/Achievements";
 import Login from "./src/screens/Login";
+import Analytics from "./src/screens/Analytics";
 import UserSettings from "./src/screens/UserSettings";
 import History from "./src/screens/History";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Iconn from "react-native-vector-icons/Entypo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Localization from "expo-localization";
 import moment from "moment";
@@ -58,12 +60,12 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Login"
-        component={Login}
+        name="line-graph"
+        component={Analytics}
         options={{
-          tabBarLabel: "Login",
+          tabBarLabel: "Analytics",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="login" color={color} size={40} />
+            <Iconn name="bar-graph" color={color} size={40} />
           ),
         }}
       />

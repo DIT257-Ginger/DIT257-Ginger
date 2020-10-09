@@ -9,9 +9,7 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import {
-  collect,
-} from "../features/trashCollection";
+import { collect } from "../features/trashCollection";
 import { readTrashCount } from "../persistence";
 import TrashRegistrationSelection from "./TrashRegistrationSelection";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
   },
   collectButton: {
     width: 120,
-    height: 30,
+
     padding: 10,
     marginBottom: 10,
     alignItems: "center",

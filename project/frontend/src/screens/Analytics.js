@@ -83,36 +83,31 @@ export default function analytics(navigation) {
    * the labels are there just to make it clearer which trash type belongs to
    */
 
-  const data = [
+  const trashTypeData = [
     {
       key: 1,
       amount: checkValueofArray(trashTypeValues, "bag"),
       svg: { fill: randomColor() },
-      label: "Bag",
     },
     {
       key: 2,
       amount: checkValueofArray(trashTypeValues, "battery"),
       svg: { fill: randomColor() },
-      label: "battery",
     },
     {
       key: 3,
       amount: checkValueofArray(trashTypeValues, "cigarette"),
       svg: { fill: randomColor() },
-      label: "cigarette",
     },
     {
       key: 4,
       amount: checkValueofArray(trashTypeValues, "candyWrapper"),
       svg: { fill: randomColor() },
-      label: "candyWrapper",
     },
     {
       key: 5,
       amount: checkValueofArray(trashTypeValues, "metalCan"),
       svg: { fill: randomColor() },
-      label: "Metalcan",
     },
   ];
 
@@ -128,7 +123,7 @@ export default function analytics(navigation) {
    * Filters the trash types that haven't been collected yet e.g with zero values
    *
    */
-  const pieData = data.filter((value) => value.amount > 0);
+  const pieData = trashTypeData.filter((value) => value.amount > 0);
 
   /**
    * Used to get the chosen Images from trashTypes module
@@ -143,10 +138,10 @@ export default function analytics(navigation) {
       const { labelCentroid, pieCentroid, data } = slice;
       return (
         <G key={index} x={labelCentroid[0]} y={labelCentroid[1]}>
-          <Circle r={22} fill={"white"} />
+          <Circle r={17} fill={"white"} />
           <Image
             x={-15}
-            y={-14}
+            y={-15}
             width={30}
             height={30}
             preserveAspectRatio="xMidYMid slice"
@@ -165,23 +160,24 @@ export default function analytics(navigation) {
    */
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <View>
         <PieChart
           style={{ height: 350 }}
           valueAccessor={({ item }) => item.amount}
           data={pieData}
-          spacing={1}
-          innerRadius="30"
+          spacing={0}
+          innerRadius="25"
           outerRadius={"70"}
         >
           <Labels />
         </PieChart>
       </View>
+      <Text></Text>
 
       <View style={{ flexDirection: "row", flex: 1, paddingVertical: 14 }}>
         <YAxis
-          data={data}
+          data={trashTypeData}
           yAccessor={({ index }) => index}
           scale={scale.scaleBand}
           contentInset={{ top: 20, bottom: 1 }}
@@ -193,17 +189,19 @@ export default function analytics(navigation) {
             strokeWidth: 5.1,
             baselineShift: 10,
           }}
-          style={{ marginLeft: 10, width: 30 }}
+          style={{ marginLeft: 10, width: 35 }}
           numberOfTicks={3}
-          formatLabel={(_, index) => data[index].amount}
+          formatLabel={(_, index) => trashTypeData[index].amount}
         />
         <BarChart
           style={{ flex: 1 }}
-          data={data}
+          data={trashTypeData}
           horizontal={true}
           yAccessor={({ item }) => item.amount}
-          yMax={findMaxValueScaleYAxis + 1}
+          yMax={findMaxValueScaleYAxis + 2}
           svg={{ fill: "rgba(134, 65, 244, 0.8)" }}
+          animate={true}
+          animationDuration={600}
           contentInset={{ top: 10, bottom: 10 }}
           spacing={0.2}
           gridMin={1}

@@ -10,6 +10,7 @@ import UserSettings from "./src/screens/UserSettings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Welcome from "./src/screens/Welcome";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,6 +70,18 @@ function MyTabs() {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <Icon name="account" color={color} size={40} />
+            //account-cog account-circle
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Welcome"
+        //welcome to trash collection app
+        component={Welcome}
+        options={{
+          tabBarLabel: "Welcome",
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="welcome" color={color} size={40} />
             //account-cog account-circle
           ),
         }}

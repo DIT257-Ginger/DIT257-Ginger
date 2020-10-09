@@ -75,28 +75,19 @@ export default function Achievements({ navigaton }) {
       <FlatList
         data={displayedAchivements}
         keyExtractor={a => a.id}
-        renderItem={({item}) => <AchievementRow title={item.title} description={item.description} icon={item.icon} secret={item.secret} collected={item.collected} />}
-        style={{overflow: "visible"}}
+        renderItem={({ item }) => <AchievementRow title={item.title} description={item.description} icon={item.icon} secret={item.secret} collected={item.collected} />}
+        style={{ overflow: "visible" }}
       />
     </View>
   );
 }
 
-const Header = ({numCollected, totalAvailable}) => (
+const Header = ({ numCollected, totalAvailable }) => (
   <View style={styles.headerContainer}>
     <SafeAreaView>
       <View style={styles.headerRow}>
         <Text style={styles.headerTitle}>Achievements</Text>
-        <ProgressCircle
-          percent={(numCollected / totalAvailable) * 100}
-          radius={20}
-          borderWidth={3}
-          color="white"
-          shadowColor="#2e9e8d"
-          bgColor="#31A896"
-        >
-          <Text style={styles.headerCounter}>{numCollected}/{totalAvailable}</Text>
-        </ProgressCircle>
+
       </View>
     </SafeAreaView>
   </View>
@@ -108,8 +99,8 @@ const AchievementRow = ({ title, description, icon, secret, collected }) => (
       {!collected && secret ? (
         <Icon name="question" size={40} color="white" style={styles.achievementIconSecret} />
       ) : (
-        <Image source={icon} style={[styles.achievementIcon, !collected && styles.achievementIconNotCollected]} />
-      )}
+          <Image source={icon} style={[styles.achievementIcon, !collected && styles.achievementIconNotCollected]} />
+        )}
     </View>
     <View style={styles.achievementInfoContainer}>
       <Text style={[styles.achievementTitle, !collected && styles.achievementTitleNotCollected]}>{title}</Text>

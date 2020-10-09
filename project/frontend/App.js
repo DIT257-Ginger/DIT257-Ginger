@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="History"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: "#11402B",
         inactiveTintColor: "white",

@@ -4,11 +4,36 @@
  */
 export function getTrashTypes() {
   return [
-    new TrashType("bag", "bag of trash", 1, require("../../../assets/trashTypesImages/bittrashbag.png")),
-    new TrashType("battery", "battery", 0.2, require("../../../assets/trashTypesImages/bitbattery.jpg")),
-    new TrashType("cigarette", "cigarette butt", 0.02, require("../../../assets/trashTypesImages/bitcigarette.jpg")),
-    new TrashType("candyWrapper", "candy wrapper", 0.02, require("../../../assets/trashTypesImages/bitcandywrapper.png")),
-    new TrashType("metalCan", "metal can", 0.1, require("../../../assets/trashTypesImages/bitmetalcan.png")),
+    new TrashType(
+      "bag",
+      "bag of trash",
+      1,
+      require("../../../assets/trashTypesImages/bag.png")
+    ),
+    new TrashType(
+      "battery",
+      "battery",
+      0.2,
+      require("../../../assets/trashTypesImages/battery.png")
+    ),
+    new TrashType(
+      "cigarette",
+      "cigarette butt",
+      0.02,
+      require("../../../assets/trashTypesImages/cigarette.png")
+    ),
+    new TrashType(
+      "candyWrapper",
+      "candy wrapper",
+      0.02,
+      require("../../../assets/trashTypesImages/candyWrapper.png")
+    ),
+    new TrashType(
+      "metalCan",
+      "metal can",
+      0.1,
+      require("../../../assets/trashTypesImages/metalCan.png")
+    ),
   ];
 }
 

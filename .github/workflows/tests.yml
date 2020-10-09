@@ -2,7 +2,7 @@ name: Run frontend tests
 
 on:
   push:
-    branches: [ $default-branch, github-actions-test ]
+    branches: [ master, github-actions-test ]
     paths-ignore:
     - 'documentation/**'
   pull_request:

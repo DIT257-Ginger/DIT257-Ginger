@@ -8,3 +8,8 @@ export {
   writeCollectedTrash,
   pushToCollectedTrash,
 } from "./local/collectedTrash";
+export {
+  readCollectedAchievements,
+  writeCollectedAchievements,
+  pushCollected,
+} from "./local/AchivementStorage";

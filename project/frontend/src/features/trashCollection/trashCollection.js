@@ -7,6 +7,8 @@ import {
   writeTrashCount,
   incrementTrashCount,
 } from "../../persistence";
+import { v4 as uuidv4 } from "uuid";
+import { notifyAchievement } from "../achievements/";
 
 const trashValues = getTrashTypes().reduce((trashValObj, type) => {
   trashValObj[type.id] = type.value;
@@ -15,19 +17,23 @@ const trashValues = getTrashTypes().reduce((trashValObj, type) => {
 
 // collected trash format:
 // Array of TrashCollectionEntry:
-// {"type": {string, valid trash type}, "amount": {number > 0}, "time": {number, ms since 1970}}
+// {"id": {UUID v4}, "type": {string, valid trash type}, "amount": {number > 0}, "time": {number, ms since 1970}}
 
 /**
  * Function used when user has collected new trash.
  * Adds new persistent trash collection entry and updates persistent trash count.
  * @param {String} type - id of trash type to collect
  * @param {Number} amount - how many were collected
+ * @returns {Promise<TrashCollectionEntry>} - the newly added collection entry
  */
 export async function collect(type, amount) {
-  const newTrash = new TrashCollectionEntry(type, amount);
+  const uuid = uuidv4();
+  const newTrash = new TrashCollectionEntry(uuid, type, amount);
   await pushToCollectedTrash(newTrash);
   const value = getValue(newTrash);
   await incrementTrashCount(value);
+  notifyAchievement(await readCollectedTrash()); //signals change
+  return newTrash;
 }
 
 /**
@@ -68,6 +74,27 @@ export async function calculateTrashCountOfType(typeId) {
     (trashCount) => trashCount.amount
   );
   return collectedTrashValues.reduce((a, b) => a + b, 0);
+}
+
+/**
+ * Removes a specific collection entry from persistent collected trash and
+ * updates persistent trash count accordingly.
+ * @param {String} id - the ID of the trash collection entry to undo
+ * @returns {Promise<TrashCollectionEntry>} - removed trash collection entry or undefined if it does not exist
+ */
+export async function undoCollect(id) {
+  const collectedTrash = await readCollectedTrash();
+  const indexToRemove = collectedTrash.findIndex((entry) => entry.id === id);
+  if (indexToRemove === -1) {
+    return undefined;
+  }
+
+  const removedTrash = collectedTrash[indexToRemove];
+  collectedTrash.splice(indexToRemove, 1);
+
+  await writeCollectedTrash(collectedTrash);
+  await refreshTrashCount();
+  return removedTrash;
 }
 
 /**

@@ -15,7 +15,7 @@ export async function notifyAchievement(trashEntries) {
         (entry) =>
           entry.amount >= allAchievements[i].condition[1] &&
           entry.type == allAchievements[i].condition[0]
-      ) == true
+      )
     ) {
       await updateAchievements(allAchievements[i].id);
     }

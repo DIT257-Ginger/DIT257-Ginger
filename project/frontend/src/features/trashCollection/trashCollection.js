@@ -69,7 +69,7 @@ export async function undoCollect(id) {
   }
 
   const removedTrash = collectedTrash[indexToRemove];
-  collectedTrash.splice(indexToRemove);
+  collectedTrash.splice(indexToRemove, 1);
 
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();

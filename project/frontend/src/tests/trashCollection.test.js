@@ -162,32 +162,32 @@ test("Collect many then undo in between and check length and that the right one 
   const entry5 = await collect(type, 564); // Undo
   const entry6 = await collect(type, 1);
   const entry7 = await collect(type, 3);
-  expect(await readCollectedTrash()).toHaveLength(7);
+  expect(readCollectedTrash()).resolves.toHaveLength(7);
 
   await undoCollect(entry3.id);
-  expect(await readCollectedTrash()).toHaveLength(6);
-  expect(readIds()).not.toContain(entry3.id);
+  expect(readCollectedTrash()).resolves.toHaveLength(6);
+  expect(readIds()).resolves.not.toContain(entry3.id);
 
   await undoCollect(entry5.id);
-  expect(await readCollectedTrash()).toHaveLength(5);
-  expect(readIds()).not.toContain(entry5.id);
+  expect(readCollectedTrash()).resolves.toHaveLength(5);
+  expect(readIds()).resolves.not.toContain(entry5.id);
 
   await undoCollect(entry1.id);
-  expect(await readCollectedTrash()).toHaveLength(4);
-  expect(readIds()).not.toContain(entry1.id);
+  expect(readCollectedTrash()).resolves.toHaveLength(4);
+  expect(readIds()).resolves.not.toContain(entry1.id);
 
-  expect(readIds()).toContain(entry2.id);
-  expect(readIds()).toContain(entry4.id);
-  expect(readIds()).toContain(entry6.id);
-  expect(readIds()).toContain(entry7.id);
+  expect(readIds()).resolves.toContain(entry2.id);
+  expect(readIds()).resolves.toContain(entry4.id);
+  expect(readIds()).resolves.toContain(entry6.id);
+  expect(readIds()).resolves.toContain(entry7.id);
 });
 
 test("Undo collect by id updates trash count", async () => {
   const type = "bag";
   const entry = await collect(type, 3);
   await collect(type, 2);
-  expect(await readTrashCount()).toBe(5);
 
   await undoCollect(entry.id);
+
   expect(await readTrashCount()).toBe(2);
 });

@@ -22,11 +22,11 @@ export default function TrashHistoryList({ ...props }) {
 
   async function loadCollectedTrash() {
     const trash = await readCollectedTrash();
+    trash.sort((e1, e2) => e2.time - e1.time); // Descending by date collected
     setCollectedTrash(trash);
   }
 
   async function deleteTrash(id) {
-    console.log(id);
     await trashCollection.undoCollect(id);
     await loadCollectedTrash();
   }

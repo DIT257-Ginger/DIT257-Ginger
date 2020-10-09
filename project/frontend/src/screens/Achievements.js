@@ -1,88 +1,73 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 import ProgressCircle from "react-native-progress-circle";
+import { allAchievements } from "../features/achievements/AllAchievements";
+import { getAchievements } from "../features/achievements/";
+import { AchievementGainedSignaler } from "../features/achievements/";
 
-const achievements = [
-  {
-    id: "1",
-    secret: false,
-    title: "Good start 👏",
-    description: "Collect 10 bags of trash",
-    icon: require("../../assets/trash.png")
-  },
-  {
-    id: "2",
-    secret: false,
-    title: "Keep going",
-    description: "Collect 20 bags of trash",
-    icon: require("../../assets/idleGif.gif")
-  },
-  {
-    id: "3",
-    secret: true,
-    title: "Recycler",
-    description: "Read about recycling in main menu",
-    icon: require("../../assets/leaflogo_1.png")
-  },
-  {
-    id: "8",
-    secret: false,
-    title: "Trash master",
-    description: "Collect 5000000 bags of trash 😋",
-    icon: require("../../assets/idleGif.gif")
-  },
-  {
-    id: "5",
-    secret: false,
-    title: "Keep going",
-    description: "Collect 20 bags of trash",
-    icon: require("../../assets/leaflogo_1.png")
-  },
-  {
-    id: "7",
-    secret: true,
-    title: "S.E.C.R.E.T.",
-    description: "Collect 10 bags of trash",
-    icon: require("../../assets/trash.png")
-  },
-  {
-    id: "4",
-    secret: false,
-    title: "Good start",
-    description: "Collect 10 bags of trash",
-    icon: require("../../assets/trash.png")
-  },
-];
+export function Achievements({ navigaton }) {
+  const [collectedAchievements, setcollectedAchievements] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
-export default function Achievements({ navigaton }) {
-  // TODO: Figure out how to get user's collection status here
-  const collectedAchievements = [
-    "1", "2", "7"
-  ];
+  function reload() {
+    setLoaded(false);
+  }
 
-  const displayedAchivements = achievements.map(achievement => {
+  
+
+  async function fetchAchievement() {
+    const achievements = await getAchievements();
+    setcollectedAchievements(achievements);
+    setLoaded(true);
+  }
+
+  if (!loaded) {
+    fetchAchievement();
+  }
+
+  // Subscribe to my youtube channel
+  useEffect(() => {
+    AchievementGainedSignaler.subscribe(reload, false);
+  }, []);
+
+  const displayedAchivements = allAchievements.map((achievement) => {
     return {
       ...achievement,
-      collected: collectedAchievements.includes(achievement.id)
+      collected: collectedAchievements.some(
+        (item) => item.id === achievement.id
+      ),
+      //collected: collectedAchievements.includes(allAchievements.id),
     };
   });
 
   return (
     <View style={styles.screenContainer}>
-      <Header numCollected={collectedAchievements.length} totalAvailable={achievements.length} />
+      <Header
+        numCollected={collectedAchievements.length}
+        totalAvailable={allAchievements.length}
+      />
+
       <FlatList
         data={displayedAchivements}
-        keyExtractor={a => a.id}
-        renderItem={({item}) => <AchievementRow title={item.title} description={item.description} icon={item.icon} secret={item.secret} collected={item.collected} />}
-        style={{overflow: "visible"}}
+        keyExtractor={(a) => a.id}
+        renderItem={({ item }) => (
+          <AchievementRow
+            title={item.title}
+            description={item.description}
+            icon={item.icon}
+            secret={item.secret}
+            collected={item.collected}
+          />
+        )}
+        style={{ overflow: "visible" }}
       />
     </View>
   );
 }
 
-const Header = ({numCollected, totalAvailable}) => (
+const Header = ({ numCollected, totalAvailable }) => (
   <View style={styles.headerContainer}>
     <SafeAreaView>
       <View style={styles.headerRow}>
@@ -95,7 +80,9 @@ const Header = ({numCollected, totalAvailable}) => (
           shadowColor="#2e9e8d"
           bgColor="#31A896"
         >
-          <Text style={styles.headerCounter}>{numCollected}/{totalAvailable}</Text>
+          <Text style={styles.headerCounter}>
+            {numCollected}/{totalAvailable}
+          </Text>
         </ProgressCircle>
       </View>
     </SafeAreaView>
@@ -104,16 +91,46 @@ const Header = ({numCollected, totalAvailable}) => (
 
 const AchievementRow = ({ title, description, icon, secret, collected }) => (
   <View style={styles.achievementRow}>
-    <View style={[styles.achievementIconContainer, !collected && styles.achievementIconContainerNotCollected]}>
+    <View
+      style={[
+        styles.achievementIconContainer,
+        !collected && styles.achievementIconContainerNotCollected,
+      ]}
+    >
       {!collected && secret ? (
-        <Icon name="question" size={40} color="white" style={styles.achievementIconSecret} />
+        <Icon
+          name="question"
+          size={40}
+          color="white"
+          style={styles.achievementIconSecret}
+        />
       ) : (
-        <Image source={icon} style={[styles.achievementIcon, !collected && styles.achievementIconNotCollected]} />
+        <Image
+          source={icon}
+          style={[
+            styles.achievementIcon,
+            !collected && styles.achievementIconNotCollected,
+          ]}
+        />
       )}
     </View>
     <View style={styles.achievementInfoContainer}>
-      <Text style={[styles.achievementTitle, !collected && styles.achievementTitleNotCollected]}>{title}</Text>
-      <Text style={[styles.achievementDescription, !collected && styles.achievementDescriptionNotCollected]}>{!collected && secret ? "???" : description}</Text>
+      <Text
+        style={[
+          styles.achievementTitle,
+          !collected && styles.achievementTitleNotCollected,
+        ]}
+      >
+        {title}
+      </Text>
+      <Text
+        style={[
+          styles.achievementDescription,
+          !collected && styles.achievementDescriptionNotCollected,
+        ]}
+      >
+        {!collected && secret ? "???" : description}
+      </Text>
     </View>
   </View>
 );
@@ -121,7 +138,7 @@ const AchievementRow = ({ title, description, icon, secret, collected }) => (
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: "#8EE1FF"
+    backgroundColor: "#8EE1FF",
   },
   headerContainer: {
     marginBottom: 5,
@@ -146,7 +163,7 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   headerTitle: {
     fontSize: 25,
@@ -187,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.25)",
     overflow: "hidden",
     borderWidth: 2,
-    borderColor: "white"
+    borderColor: "white",
   },
   achievementIcon: {
     width: "100%",
@@ -195,31 +212,31 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   achievementIconSecret: {
-    color: "rgba(0,0,0,0.3)"
+    color: "rgba(0,0,0,0.3)",
   },
   achievementInfoContainer: {
     flex: 1,
     alignSelf: "center",
     marginLeft: 10,
-    color: "black"
+    color: "black",
   },
   achievementTitle: {
     fontSize: 20,
-    color: "white"
+    color: "white",
   },
   achievementDescription: {
-    color: "rgba(0,0,0,0.9)"
+    color: "rgba(0,0,0,0.9)",
   },
   achievementIconContainerNotCollected: {
     borderWidth: 0,
   },
   achievementIconNotCollected: {
-    opacity: 0.3
+    opacity: 0.3,
   },
   achievementTitleNotCollected: {
-    color: "rgba(0,0,0,0.5)"
+    color: "rgba(0,0,0,0.5)",
   },
   achievementDescriptionNotCollected: {
-    color: "rgba(0,0,0,0.5)"
+    color: "rgba(0,0,0,0.5)",
   },
 });

@@ -26,7 +26,6 @@ export default function TrashRegistrationSelection({
   const [currentTrash, setCurrentTrash] = useState(defaultTrash);
 
   function updateAmount(type, amount) {
-    console.log(type + " " + amount);
     setCurrentTrash((prevTrash) => ({
       ...prevTrash,
       [type]: amount,
@@ -34,10 +33,10 @@ export default function TrashRegistrationSelection({
   }
 
   async function onCollectPopup() {
-    console.log(currentTrash);
+    //console.log(currentTrash);
     for (const type in currentTrash) {
       const amount = currentTrash[type];
-      console.log(type + " " + amount);
+      //console.log(type + " " + amount);
       if (amount > 0) {
         await collect(type, amount);
       }

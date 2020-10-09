@@ -8,6 +8,7 @@ import {
   incrementTrashCount,
 } from "../../persistence";
 import { v4 as uuidv4 } from "uuid";
+import { notifyAchievement } from "../achievements/";
 
 const trashValues = getTrashTypes().reduce((trashValObj, type) => {
   trashValObj[type.id] = type.value;
@@ -31,6 +32,7 @@ export async function collect(type, amount) {
   await pushToCollectedTrash(newTrash);
   const value = getValue(newTrash);
   await incrementTrashCount(value);
+  notifyAchievement(await readCollectedTrash()); //signals change
   return newTrash;
 }
 

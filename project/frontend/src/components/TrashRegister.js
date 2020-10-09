@@ -1,11 +1,20 @@
 import { DarkTheme } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Button, Modal, Image, TouchableHighlight, Platform } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  Modal,
+  Image,
+  TouchableHighlight,
+  Platform,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { getTrashTypes } from "../features/trashCollection";
 import { writeTrashCount, readTrashCount } from "../persistence";
 import TrashRegistrationSelection from "./TrashRegistrationSelection";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 /**
  * Component for registering trash collected by user.
@@ -41,14 +50,19 @@ export default function TrashRegister() {
     <>
       {Platform.OS !== "web" || modalVisible ? (
         //Collect Popup Window
-        <Modal style={styles.modalContainer}
+        <Modal
+          style={styles.modalContainer}
           animationType="fade"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <TrashRegistrationSelection setModalVisible={setModalVisible} onTrashCollected={() => fetchTrashCount()} />
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <TrashRegistrationSelection
+            setModalVisible={setModalVisible}
+            onTrashCollected={() => fetchTrashCount()}
+          />
         </Modal>
       ) : null}
       <View style={styles.container}>
@@ -56,12 +70,15 @@ export default function TrashRegister() {
           style={styles.garbageCanImage}
           source={require("../../assets/idleGif.gif")}
         />
-        <Text style={styles.collectionText}>Trash collected: {trashCount.toFixed(2)}</Text>
+        <Text style={styles.collectionText}>
+          Trash collected: {trashCount.toFixed(2)}
+        </Text>
         <TouchableHighlight
           style={styles.collectButton}
           onPress={() => {
             setModalVisible(true);
-          }}>
+          }}
+        >
           <Icon name="plus" color={"white"} size={40} />
         </TouchableHighlight>
       </View>
@@ -72,17 +89,17 @@ export default function TrashRegister() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   garbageCanImage: {
     flex: 1,
     width: "100%",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   collectionText: {
     alignSelf: "center",
     marginBottom: 10,
-    fontSize: 25
+    fontSize: 25,
   },
   collectButton: {
     width: 60,
@@ -91,7 +108,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: 'pink',
+    backgroundColor: "pink",
     borderRadius: 30,
 
     // iOS shadow
@@ -109,5 +126,5 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: "100%",
     height: "100%",
-  }
+  },
 });

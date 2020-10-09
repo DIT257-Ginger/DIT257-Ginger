@@ -3,6 +3,7 @@ export { TrashCollectionEntry } from "./TrashCollectionEntry";
 export {
   collect,
   refreshTrashCount,
+  undoCollect,
   undoLastCollect,
   undoCollectsFrom,
 } from "./trashCollection";

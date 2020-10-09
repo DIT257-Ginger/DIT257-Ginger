@@ -5,7 +5,7 @@ const COLLECTED_TRASH_KEY = "collected_trash";
 
 // collected trash format:
 // Array of TrashCollectionEntry:
-// {"type": {string, valid trash type}, "amount": {number > 0}, "time": {number, ms since 1970}}
+// {"id": {UUID v4}, "type": {string, valid trash type}, "amount": {number > 0}, "time": {number, ms since 1970}}
 
 /**
  * Reads the locally stored persistent array of trash collection entries.

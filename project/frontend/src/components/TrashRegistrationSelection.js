@@ -26,7 +26,6 @@ export default function TrashRegistrationSelection({
   const [currentTrash, setCurrentTrash] = useState(defaultTrash);
 
   function updateAmount(type, amount) {
-    //console.log(type + " " + amount);
     setCurrentTrash((prevTrash) => ({
       ...prevTrash,
       [type]: amount,
@@ -142,9 +141,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   trashRowIcon: {
-    height: 50,
     flexBasis: 50,
     aspectRatio: 1,
+    resizeMode: "contain",
   },
   trashRowTitle: {
     flexBasis: 50,

@@ -15,7 +15,7 @@ export function Achievements({ navigaton }) {
     setLoaded(false);
   }
 
-  AchievementGainedSignaler.subscribe(reload, false);
+  
 
   async function fetchAchievement() {
     const achievements = await getAchievements();
@@ -27,11 +27,10 @@ export function Achievements({ navigaton }) {
     fetchAchievement();
   }
 
-  // Fetch initial achievements
-  //useEffect(() => {
-  //  fetchAchievement();
-  //
-  //}, []);
+  // Subscribe to my youtube channel
+  useEffect(() => {
+    AchievementGainedSignaler.subscribe(reload, false);
+  }, []);
 
   const displayedAchivements = allAchievements.map((achievement) => {
     return {

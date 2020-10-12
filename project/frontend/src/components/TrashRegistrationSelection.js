@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import {
-  Alert,
-  Modal,
   StyleSheet,
   Text,
   TouchableHighlight,
   View,
   FlatList,
   Image,
-  Button,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { collect, getTrashTypes } from "../features/trashCollection";
 import InputSpinner from "react-native-input-spinner";
 
 export default function TrashRegistrationSelection({
-  setModalVisible,
+  onCancelled,
   onTrashCollected,
 }) {
   const defaultTrash = getTrashTypes().reduce((trashValObj, type) => {
@@ -26,7 +22,6 @@ export default function TrashRegistrationSelection({
   const [currentTrash, setCurrentTrash] = useState(defaultTrash);
 
   function updateAmount(type, amount) {
-    //console.log(type + " " + amount);
     setCurrentTrash((prevTrash) => ({
       ...prevTrash,
       [type]: amount,
@@ -34,10 +29,8 @@ export default function TrashRegistrationSelection({
   }
 
   async function onCollectPopup() {
-    //console.log(currentTrash);
     for (const type in currentTrash) {
       const amount = currentTrash[type];
-      //console.log(type + " " + amount);
       if (amount > 0) {
         await collect(type, amount);
       }
@@ -45,7 +38,6 @@ export default function TrashRegistrationSelection({
     if (onTrashCollected) {
       await onTrashCollected();
     }
-    setModalVisible(false);
   }
 
   return (
@@ -64,21 +56,24 @@ export default function TrashRegistrationSelection({
                 onTrashAmountChanged={(num) => updateAmount(item.id, num)}
               />
             )}
-            style={{ overflow: "hidden" }}
           />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             style={styles.cancelBtn}
             onPress={() => {
-              setModalVisible(false);
+              if (onCancelled) {
+                onCancelled();
+              }
             }}
+            testID={"cancel-btn"}
           >
             <Text style={styles.cancelBtnText}>Cancel</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.collectBtn}
             onPress={onCollectPopup}
+            testID={"collect-btn"}
           >
             <Text style={styles.collectBtnText}>Collect</Text>
           </TouchableHighlight>
@@ -88,6 +83,7 @@ export default function TrashRegistrationSelection({
   );
 }
 
+//Creates a list where every trash types shows a row in the collect type modal view.
 const TrashRow = ({ title, image, amount, onTrashAmountChanged }) => (
   <View style={styles.trashRow}>
     <Image source={image} style={styles.trashRowIcon} />
@@ -96,8 +92,6 @@ const TrashRow = ({ title, image, amount, onTrashAmountChanged }) => (
       max={100}
       min={0}
       step={1}
-      //colorMax={"#f04048"}
-      //colorMin={"#40c5f4"}
       value={amount}
       onChange={onTrashAmountChanged}
       style={styles.trashCountInput}
@@ -142,9 +136,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   trashRowIcon: {
-    height: 50,
     flexBasis: 50,
     aspectRatio: 1,
+    resizeMode: "contain",
   },
   trashRowTitle: {
     flexBasis: 50,

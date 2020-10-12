@@ -1,4 +1,3 @@
-import { DarkTheme } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -10,25 +9,22 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { getTrashTypes } from "../features/trashCollection";
-import { writeTrashCount, readTrashCount } from "../persistence";
+import { collect } from "../features/trashCollection";
+import { readTrashCount } from "../persistence";
 import TrashRegistrationSelection from "./TrashRegistrationSelection";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 /**
  * Component for registering trash collected by user.
  */
-export default function TrashRegister() {
+export default function TrashRegister({ onTrashCountChanged = () => {} }) {
   const [trashCount, setTrashCount] = useState(0);
-  const [loading, setLoading] = useState(true);
 
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function fetchTrashCount() {
     const count = await readTrashCount();
     setTrashCount(count);
-    setLoading(false);
   }
 
   // Fetch initial trash count
@@ -36,14 +32,19 @@ export default function TrashRegister() {
     fetchTrashCount();
   }, []);
 
-  async function onCollect() {
-    setTrashCount((prevTrash) => prevTrash + 1);
-    await writeTrashCount(trashCount + 1);
+  // Propagate changed trash count whenever it changes
+  useEffect(() => {
+    onTrashCountChanged(trashCount);
+  }, [trashCount]);
+
+  async function onAddBag() {
+    await collect("bag", 1);
+    await fetchTrashCount();
   }
 
-  async function onClear() {
-    setTrashCount(0);
-    await writeTrashCount(0);
+  async function onRemoveBag() {
+    await collect("bag", -1); // TODO: Properly remove row
+    await fetchTrashCount();
   }
 
   return (
@@ -55,13 +56,14 @@ export default function TrashRegister() {
           animationType="fade"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
+          testID={"collect-modal"}
         >
           <TrashRegistrationSelection
-            setModalVisible={setModalVisible}
-            onTrashCollected={() => fetchTrashCount()}
+            onCancelled={() => setModalVisible(false)}
+            onTrashCollected={() => {
+              fetchTrashCount();
+              setModalVisible(false);
+            }}
           />
         </Modal>
       ) : null}
@@ -70,17 +72,41 @@ export default function TrashRegister() {
           style={styles.garbageCanImage}
           source={require("../../assets/idleGif.gif")}
         />
-        <Text style={styles.collectionText}>
-          Trash collected: {trashCount.toFixed(2)}
-        </Text>
+
         <TouchableHighlight
           style={styles.collectButton}
           onPress={() => {
             setModalVisible(true);
           }}
+          testID={"collect-type-btn"}
         >
-          <Icon name="plus" color={"white"} size={40} />
+          <Text style={styles.collectButtonText}>Collect Type</Text>
         </TouchableHighlight>
+        <View style={styles.addRemoveTrashContainer}>
+          <TouchableHighlight
+            style={styles.removeButton}
+            onPress={() => {
+              onRemoveBag();
+            }}
+            testID={"remove-bag-btn"}
+          >
+            <Icon name="minus" color={"white"} size={40} />
+          </TouchableHighlight>
+
+          <Text style={styles.collectionText}>
+            {trashCount.toFixed(2)} Trash Bags
+          </Text>
+
+          <TouchableHighlight
+            style={styles.addButton}
+            onPress={() => {
+              onAddBag();
+            }}
+            testID={"add-bag-btn"}
+          >
+            <Icon name="plus" color={"white"} size={40} />
+          </TouchableHighlight>
+        </View>
       </View>
     </>
   );
@@ -91,19 +117,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  modalContainer: {
+    width: "100%",
+    height: "100%",
+  },
   garbageCanImage: {
     flex: 1,
     width: "100%",
     resizeMode: "contain",
   },
-  collectionText: {
-    alignSelf: "center",
-    marginBottom: 10,
-    fontSize: 25,
-  },
   collectButton: {
-    width: 60,
-    height: 60,
+    width: 120,
+
     padding: 10,
     marginBottom: 10,
     alignItems: "center",
@@ -123,8 +148,63 @@ const styles = StyleSheet.create({
     // Android shadow
     elevation: 5,
   },
-  modalContainer: {
-    width: "100%",
-    height: "100%",
+  collectButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  addRemoveTrashContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  collectionText: {
+    alignSelf: "center",
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    fontSize: 25,
+  },
+  addButton: {
+    width: 60,
+    height: 60,
+    padding: 10,
+    marginRight: 20,
+    marginBottom: 10,
+    alignItems: "center",
+    backgroundColor: "pink",
+    borderRadius: 30,
+
+    // iOS shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    // Android shadow
+    elevation: 5,
+  },
+  removeButton: {
+    width: 60,
+    height: 60,
+    padding: 10,
+    marginLeft: 20,
+    marginBottom: 10,
+    alignItems: "center",
+    backgroundColor: "pink",
+    borderRadius: 30,
+
+    // iOS shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    // Android shadow
+    elevation: 5,
   },
 });

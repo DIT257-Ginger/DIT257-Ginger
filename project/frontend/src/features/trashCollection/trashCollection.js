@@ -54,6 +54,51 @@ async function calculateTrashCount() {
 }
 
 /**
+<<<<<<< Updated upstream
+=======
+ * Calculates sum of persistent collected trash amount of certain type.
+ * @param   {String} type - id of trash type to collect
+ * @returns {Promise<Number>} - sum of persistent collected trash type.
+ */
+export async function calculateTrashCountOfType(typeId) {
+  const collectedTrash = await readCollectedTrash();
+  if (collectedTrash.length === 0) {
+    return 0;
+  }
+  const collectedTrashOfType = collectedTrash.filter(
+    (entry) => entry.type === typeId
+  );
+  const collectedTrashValues = collectedTrashOfType.map(
+    (trashCount) => trashCount.amount
+  );
+  return collectedTrashValues.reduce((a, b) => a + b, 0);
+}
+
+/**
+ * Removes a specific collection entry from persistent collected trash and
+ * updates persistent trash count accordingly.
+ * @param {String} id - the ID of the trash collection entry to undo
+ * @returns {Promise<TrashCollectionEntry>} - removed trash collection entry or undefined if it does not exist
+ */
+export async function undoCollect(id) {
+  const collectedTrash = await readCollectedTrash();
+  const indexToRemove = collectedTrash.findIndex((entry) => entry.id === id);
+  if (indexToRemove === -1) {
+    return undefined;
+  }
+
+  const removedTrash = collectedTrash[indexToRemove];
+  collectedTrash.splice(indexToRemove, 1);
+
+  await writeCollectedTrash(collectedTrash);
+  await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
+  console.log("Item removed by id");
+  return removedTrash;
+}
+
+/**
+>>>>>>> Stashed changes
  * Removes the latest collection entry from persistent collected trash and
  * updates persistent trash count accordingly.
  * @returns {Promise<TrashCollectionEntry>} - removed trash collection entry or undefined
@@ -63,6 +108,9 @@ export async function undoLastCollect() {
   const lastCollect = collectedTrash.pop();
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
+  console.log("Item removed by last collect");
+
   return lastCollect;
 }
 

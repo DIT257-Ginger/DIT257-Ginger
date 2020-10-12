@@ -1,14 +1,20 @@
 import { allAchievements } from "./AllAchievements";
-import { readCollectedAchievements, pushCollected } from "../../persistence";
+import {
+  readCollectedAchievements,
+  pushCollected,
+  writeCollectedAchievements,
+} from "../../persistence";
 import { AchievementGainedSignaler } from "./AchievementGainedSignaler";
 
 /**
  * Processes updates from functions that could result in
- * the user getting a new achievement.
+ * the user getting a new achievement or losing one as a result of
+ * removing previously collected trash.
  * @param {Promise<Array{String, Number}]>} - all stored entries
  */
 export async function notifyAchievement(trashEntries) {
   const collectedTrash = await sortTrashTypes(await trashEntries);
+  console.log(collectedTrash);
   for (var i = 0; i < allAchievements.length; i++) {
     if (
       collectedTrash.some(
@@ -18,6 +24,15 @@ export async function notifyAchievement(trashEntries) {
       )
     ) {
       await updateAchievements(allAchievements[i].id);
+    }
+    if (
+      collectedTrash.some(
+        (entry) =>
+          entry.amount < allAchievements[i].condition[1] &&
+          entry.type == allAchievements[i].condition[0]
+      )
+    ) {
+      await removeAchievement(allAchievements[i].id);
     }
   }
 }
@@ -34,6 +49,7 @@ async function sortTrashTypes(trashEntries) {
     { type: "cigarette", amount: 0 },
     { type: "candyWrapper", amount: 0 },
     { type: "metalCan", amount: 0 },
+    { type: "level", amount: 0 },
   ];
   for (var i = 0; i < (await trashEntries.length); i++) {
     if (trashEntries[i].type == "bag") {
@@ -51,23 +67,25 @@ async function sortTrashTypes(trashEntries) {
     if (trashEntries[i].type == "metalCan") {
       trashTypes[4].amount += trashEntries[i].amount;
     }
+    if (trashEntries[i].type == "level") {
+      trashTypes[5].amount = trashEntries[i].amount;
+    }
   }
   return trashTypes;
 }
 
 /**
  * Adds newly acquired achievements persistent storage.
- * The object being pushed to memory: {id: id, hasCollected:true}
+ * The object being pushed to memory: {id: Promise<Number>, hasCollected: boolean}
  * Will also send a signal for each one.
  * @param {Promise<Number>} id - the id of the achievement
  */
 async function updateAchievements(id) {
-  //const collected = await getAchievements();
   const collected = await getAchievements();
   if (!collected.some((item) => item.id === id)) {
     const item = { id: id, hasCollected: true };
     await pushCollected(item);
-    console.log(allAchievements[id].id);
+    //console.log(allAchievements[id].id);
     AchievementGainedSignaler.signal(allAchievements[id].id);
   }
 }
@@ -102,4 +120,24 @@ async function getCorresponding(collectedAchievements) {
     }
   });
   return correspondingAchievement;
+}
+
+/**
+ * Removes granted achievements that no longer have their
+ * conditions met.
+ * @param {Promise<Number>} id - the id of the achievement
+ */
+async function removeAchievement(id) {
+  const storedAchievements = await readCollectedAchievements();
+  for (var i = 0; i < storedAchievements.length; i++) {
+    //if condition is lower then remove item
+    if (storedAchievements[i].id === (await id)) {
+      console.log("item to be removed: ");
+      console.log(storedAchievements[i]);
+      storedAchievements.splice(i, 1);
+      i--;
+      await writeCollectedAchievements(storedAchievements);
+      AchievementGainedSignaler.signal(allAchievements[id].id); //this might be wrong
+    }
+  }
 }

@@ -104,6 +104,15 @@ const allAchievements = [
     icon: require("../../../assets/trashAchievementImages/trashmaster.png"),
     hasAquired: false,
   },
+  {
+    id: "11",
+    secret: false,
+    title: "Level Up!",
+    description: "Reach level 9.",
+    condition: ["level", 9],
+    icon: require("../../../assets/trashAchievementImages/trashmaster.png"),
+    hasAquired: false,
+  },
 ];
 
 export { allAchievements };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, StatusBar, Button } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View, Image } from "react-native";
+import ScreenHeader from "../components/ScreenHeader";
 import TrashRegister from "../components/TrashRegister";
 import UserLevel from "../components/UserLevel";
 
@@ -9,22 +9,19 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <SafeAreaView>
-          <View style={styles.headerRow}>
-            <View style={{ width: 80 }}></View>
-            <Image
-              style={styles.appLogo}
-              source={require("../../assets/pickit5.png")}
-            />
-            <UserLevel trashCount={trashCount} style={styles.userLevel} />
-          </View>
-        </SafeAreaView>
-      </View>
+      <ScreenHeader style={styles.header}>
+        <View style={{ width: 80 }}></View>
+        <Image
+          style={styles.appLogo}
+          source={require("../../assets/pickit5.png")}
+        />
+        <UserLevel trashCount={trashCount} style={styles.userLevel} />
+      </ScreenHeader>
       <View style={styles.contents}>
         <TrashRegister onTrashCountChanged={setTrashCount} />
       </View>
-    </View>);
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -32,15 +29,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#8EE1FF",
   },
-  top: {
-    backgroundColor: "#31A896",
+  header: {
+    // Override default padding and rounding of ScreenHeader
+    paddingVertical: 0,
+    paddingHorizontal: 0,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "space-between"
   },
   appLogo: {
     //flexDirection: "row",
@@ -52,7 +46,7 @@ const styles = StyleSheet.create({
   },
   userLevel: {
     marginRight: 5,
-    marginBottom: 5
+    marginBottom: 5,
   },
   contents: {
     flex: 1,

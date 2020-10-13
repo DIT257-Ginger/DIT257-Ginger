@@ -58,7 +58,7 @@ export default function TrashHistoryList({ ...props }) {
 }
 
 const TrashRow = ({ name, amount, time, icon, onDeletePressed }) => (
-  <View style={styles.trashRow}>
+  <View style={styles.trashRow} testID={"trash-row"}>
     <View style={styles.trashIconContainer}>
       <Image source={icon} style={styles.trashIcon} />
     </View>
@@ -69,7 +69,7 @@ const TrashRow = ({ name, amount, time, icon, onDeletePressed }) => (
       </View>
       <Text style={styles.trashTime}>{moment(time).calendar()}</Text>
     </View>
-    <TouchableOpacity style={styles.undoButton} onPress={onDeletePressed}>
+    <TouchableOpacity style={styles.undoButton} onPress={onDeletePressed} testID={"delete-btn"}>
       <Icon name={"delete"} color={"white"} size={20} />
     </TouchableOpacity>
   </View>

@@ -49,7 +49,7 @@ test("pressing collect type button opens modal", async () => {
   fireEvent.press(button);
 
   const modal = await findByTestId("collect-modal");
-  waitFor(() => expect(modal.props.visible).toBe(true));
+  await waitFor(() => expect(modal.props.visible).toBe(true));
 });
 
 //Tests if the cancel button hides the modal view
@@ -62,7 +62,7 @@ test("pressing cancel button hides modal", async () => {
   fireEvent.press(cancelButton);
 
   const modal = await findByTestId("collect-modal");
-  waitFor(() => expect(modal.props.visible).toBe(false));
+  await waitFor(() => expect(modal.props.visible).toBe(false));
 });
 
 //Tests if the collect button hides the modal view
@@ -75,5 +75,5 @@ test("pressing collect button hides modal", async () => {
   fireEvent.press(collectButton);
 
   const modal = await findByTestId("collect-modal");
-  waitFor(() => expect(modal.props.visible).toBe(false));
+  await waitFor(() => expect(modal.props.visible).toBe(false));
 });

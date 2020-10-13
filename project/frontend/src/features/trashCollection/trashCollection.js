@@ -95,7 +95,6 @@ export async function undoCollect(id) {
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
   notifyAchievement(await readCollectedTrash()); //signals change
-  console.log("Item removed by id");
   return removedTrash;
 }
 
@@ -110,8 +109,6 @@ export async function undoLastCollect() {
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
   notifyAchievement(await readCollectedTrash()); //signals change
-  console.log("Item removed by last collect");
-
   return lastCollect;
 }
 

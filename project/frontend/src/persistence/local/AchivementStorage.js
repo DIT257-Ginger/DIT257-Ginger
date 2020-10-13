@@ -21,7 +21,7 @@ export async function readCollectedAchievements() {
   if (achievementString === null || JSON.parse(achievementString) === null) {
     return [];
   }
-  return JSON.parse(achievementString);
+  return await JSON.parse(achievementString);
 }
 /**
  * Pushes an achievement to the persistent memory.

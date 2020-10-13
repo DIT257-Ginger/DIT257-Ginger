@@ -1,4 +1,3 @@
-//import { AchievementHandler } from "./AchievementHandler";
 /**
  * Contains list of all achievement-objects
  * Function for putting acquired achievement in list, which
@@ -101,15 +100,6 @@ const allAchievements = [
     title: "Trash Master",
     description: "Collect 10000 trash bags.",
     condition: ["bag", 10000],
-    icon: require("../../../assets/trashAchievementImages/trashmaster.png"),
-    hasAquired: false,
-  },
-  {
-    id: "11",
-    secret: false,
-    title: "Level Up!",
-    description: "Reach level 9.",
-    condition: ["level", 9],
     icon: require("../../../assets/trashAchievementImages/trashmaster.png"),
     hasAquired: false,
   },

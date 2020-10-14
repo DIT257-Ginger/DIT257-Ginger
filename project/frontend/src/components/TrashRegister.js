@@ -19,7 +19,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 /**
  * Component for registering trash collected by user.
  */
-export default function TrashRegister({ onTrashCountChanged = () => {} }) {
+export default function TrashRegister({ onTrashCountChanged = () => {}, navigation }) {
   const [trashCount, setTrashCount] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,11 +41,6 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
 
   async function onAddBag() {
     await collect("bag", 1);
-    await fetchTrashCount();
-  }
-
-  async function onRemoveBag() {
-    await collect("bag", -1); // TODO: Properly remove row
     await fetchTrashCount();
   }
 
@@ -87,12 +82,12 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
         <View style={styles.addRemoveTrashContainer}>
           <TouchableHighlight
             style={styles.removeButton}
-            onPress={() => {
-              onRemoveBag();
-            }}
+            onPress={() => 
+              navigation.navigate("History")
+            }
             testID={"remove-bag-btn"}
           >
-            <Icon name="minus" color={"white"} size={40} />
+            <Icon name="undo" color={"white"} size={40} />
           </TouchableHighlight>
 
           <Text style={styles.collectionText}>
@@ -106,7 +101,10 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
             }}
             testID={"add-bag-btn"}
           >
-            <Icon name="plus" color={"white"} size={40} />
+            <Image
+              source={require("../../assets/addbag.png")}
+              size={40}
+            />
           </TouchableHighlight>
         </View>
       </View>

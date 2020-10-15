@@ -16,7 +16,7 @@ import WelcomeInfoModal from "../components/WelcomeInfoModal";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default function Home({ navigation }) {
-  const [welcomeModalVisible, setWelcomeModalVisible] = useState(true);
+  const [welcomeModalVisible, setWelcomeModalVisible] = useState(false);
   const [trashCount, setTrashCount] = useState(0);
 
   return (

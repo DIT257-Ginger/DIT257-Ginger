@@ -10,25 +10,29 @@ export default function WelcomeInfoModal({ closeModal = () => {} }) {
       <Image style={styles.logo} source={require("../../assets/pickit5.png")} />
       <Text style={styles.titleText}>Welcome to Keep Clean World</Text>
       <Text style={styles.titleText}>Nice to see you here</Text>
-      <Text style={styles.paragraph}>
-        Keep Clean application contributes to cleaner environment. You are able
-        to collect the trash, register number of collected bags, keep the track of your performance and
-        at the end receive different type of rewards.
-      </Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.paragraph}>
+          Keep Clean application contributes to cleaner environment. You are
+          able to collect the trash, register number of collected bags, keep the
+          track of your performance and at the end receive different type of
+          rewards.
+        </Text>
+      </View>
     </>,
     <>
-      <Image style={styles.logo} source={require("../../../assets/trashAchievementImages/rubbishrecycler.png")} />
-      <Text style={styles.titleText}>Recycler</Text>
-      <Text style={styles.paragraph}>
-        Let’s take country recycling revolution one step further and turn trash
-        into the new products. You will contribute to a zero waste sociality.
-        Plastic bottles and aluminium cans are separated from the trash and
-        recycled in nearest recycling station.
-      </Text>
-    </>,
-    <>
-      <Image style={styles.logo} source={require("../../assets/pickit5.png")} />
-      <Text style={styles.paragraph}>PAGE 3 TEXT</Text>
+      <Image
+        style={styles.logo}
+        source={require("../../assets/trashAchievementImages/rubbishrecycler.png")}
+      />
+      <View style={styles.infoBox}>
+        <Text style={styles.titleText}>Recycler</Text>
+        <Text style={styles.paragraph}>
+          Let’s take country recycling revolution one step further and turn
+          trash into the new products. You will contribute to a zero waste
+          sociality. Plastic bottles and aluminium cans are separated from the
+          trash and recycled in nearest recycling station.
+        </Text>
+      </View>
     </>,
   ];
 
@@ -77,10 +81,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   paragraph: {
-    marginTop: 10,
     fontSize: 15,
     color: "black",
     textAlign: "center",
+  },
+  infoBox: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 20,
+
+    // iOS shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    // Android shadow
+    elevation: 5,
   },
   buttonContainer: {
     flexDirection: "row",

@@ -9,7 +9,7 @@ const levelToTrashFunction = (level) => 0.5 * level + 0.5 * level * level;
  * @param {number} trashCount - amount of trash
  * @returns {number} - corresponding level
  */
-function trashCountToLevel(trashCount) {
+export function trashCountToLevel(trashCount) {
   return Math.floor(trashToLevelFunction(trashCount));
 }
 

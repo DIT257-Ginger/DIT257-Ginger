@@ -22,6 +22,11 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  const canIdleImg = require("../../assets/idleGif.gif");
+  const canCollectImg = require("../../assets/collectGifOneShot.gif")
+  var [collecting, setCollecting] = useState(false);
+  var [addingTrash, setAdding] = useState(false);
+
   async function fetchTrashCount() {
     const count = await readTrashCount();
     setTrashCount(count);
@@ -38,13 +43,27 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
   }, [trashCount]);
 
   async function onAddBag() {
-    await collect("bag", 1);
+    if(!collecting){    
+      await collect("bag", 1);
+      showCollectionGif();
+      timer1 = setTimeout(() => showIdleGif(),  4250)
+    }
     await fetchTrashCount();
+    return () => clearTimeout(timer1);
   }
 
   async function onRemoveBag() {
     await collect("bag", -1); // TODO: Properly remove row
     await fetchTrashCount();
+  }
+
+  async function showCollectionGif() {
+    setCollecting(true);
+  }
+
+  async function showIdleGif() {
+    setCollecting(false);
+    setAdding(false)
   }
 
   return (
@@ -70,7 +89,10 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
       <View style={styles.container}>
         <Image
           style={styles.garbageCanImage}
-          source={require("../../assets/idleGif.gif")}
+          source={
+            collecting
+              ? require("../../assets/collectGifOneShot.gif")
+              : require("../../assets/idleGif.gif")}
         />
 
         <TouchableHighlight
@@ -121,10 +143,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  garbageCollectImage: {
+    flex: 1,
+    width: "100%",
+    resizeMode: "contain",
+    opacity: 0
+  },
   garbageCanImage: {
     flex: 1,
     width: "100%",
     resizeMode: "contain",
+    opacity: 100
   },
   collectButton: {
     width: 120,

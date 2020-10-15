@@ -12,12 +12,12 @@ export default function WelcomeInfoModal({ closeModal = () => {} }) {
       <Text style={styles.titleText}>Nice to see you here</Text>
       <Text style={styles.paragraph}>
         Keep Clean application contributes to cleaner environment. You are able
-        to collect the trash, register, keep the track of the performance and
-        receive different type of rewards.
+        to collect the trash, register number of collected bags, keep the track of your performance and
+        at the end receive different type of rewards.
       </Text>
     </>,
     <>
-      <Image style={styles.logo} source={require("../../assets/pickit5.png")} />
+      <Image style={styles.logo} source={require("../../../assets/trashAchievementImages/rubbishrecycler.png")} />
       <Text style={styles.titleText}>Recycler</Text>
       <Text style={styles.paragraph}>
         Let’s take country recycling revolution one step further and turn trash

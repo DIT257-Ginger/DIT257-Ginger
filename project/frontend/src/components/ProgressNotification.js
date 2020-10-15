@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Modal,
@@ -7,7 +7,6 @@ import {
   View,
   Image,
   Platform,
-  Button,
 } from "react-native";
 import {
   allAchievements,
@@ -15,8 +14,7 @@ import {
 } from "../features/achievements";
 import { LevelGainedSignaler } from "../features/leveling";
 import UserLevel from "./UserLevel";
-import { shareImage, shareText } from "../sharing";
-import { Button } from "react-native-share";
+import { shareText } from "../sharing";
 
 function ProgressNotificationContent({ onClosed, type, value }) {
   let content = null;
@@ -42,7 +40,6 @@ function ProgressNotificationContent({ onClosed, type, value }) {
     );
     share = async () => {
       await shareText(
-        gainedAchievement.icon,
         `I just gained the ${gainedAchievement.title} achievement in Pick It!`
       );
     };
@@ -56,9 +53,8 @@ function ProgressNotificationContent({ onClosed, type, value }) {
         </View>
       </View>
     );
-    shareImage(`I just achieved level ${value} in Pick It!`);
     share = async () => {
-      await shareImage(`I just achieved level ${value} in Pick It!`);
+      await shareText(`I just achieved level ${value} in Pick It!`);
     };
   }
   return (
@@ -66,7 +62,7 @@ function ProgressNotificationContent({ onClosed, type, value }) {
       <View style={styles.modalBox}>
         {content}
         <View style={styles.buttonContainer}>
-          <Button
+          <TouchableHighlight
             style={styles.closeBtn}
             onPress={() => {
               if (onClosed) {
@@ -76,10 +72,14 @@ function ProgressNotificationContent({ onClosed, type, value }) {
             testID={"close-btn"}
           >
             <Text style={styles.closeBtnText}>Close</Text>
-          </Button>
-          <Button style={styles.shareBtn} testID={"share-btn"}>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.shareBtn}
+            testID={"share-btn"}
+            onPress={share}
+          >
             <Text style={styles.shareBtnText}>Share</Text>
-          </Button>
+          </TouchableHighlight>
         </View>
       </View>
     </View>
@@ -92,17 +92,23 @@ export default function ProgressNotification() {
   const [progressValue, setProgressValue] = useState(null);
 
   function showProgressNotification(type, value) {
-    setModalVisible(true);
     setProgressType(type);
     setProgressValue(value);
+    setModalVisible(true);
   }
 
-  AchievementGainedSignaler.subscribe((id) =>
-    showProgressNotification("achievement", id)
-  );
-  LevelGainedSignaler.subscribe((level) =>
-    showProgressNotification("level", level)
-  );
+  useEffect(() => {
+    const signalAchievement = (id) =>
+      showProgressNotification("achievement", id);
+    const signalLevel = (level) => showProgressNotification("level", level);
+
+    AchievementGainedSignaler.subscribe(signalAchievement);
+    LevelGainedSignaler.subscribe(signalLevel);
+    return () => {
+      AchievementGainedSignaler.unSubscribe(signalAchievement);
+      LevelGainedSignaler.unSubscribe(signalLevel);
+    };
+  }, []);
 
   return (
     <>
@@ -129,17 +135,18 @@ export default function ProgressNotification() {
 const styles = StyleSheet.create({
   achievementIcon: {
     aspectRatio: 1,
-    width: null,
-    height: null,
+    flex: 1,
     resizeMode: "contain",
   },
   achievementIconContainer: {
-    width: "60%",
-    height: "60%",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     marginLeft: "10%",
     marginRight: "10%",
   },
   progressTitleContainer: {
+    flex: 1,
     alignItems: "center",
   },
   progressTitle: {

@@ -68,7 +68,7 @@ function MyTabs() {
           options={{
             tabBarLabel: "Analytics",
             tabBarIcon: ({ color, size }) => (
-              <Icon name="bar-graph" color={color} size={40} />
+              <Iconn name="bar-graph" color={color} size={40} />
             ),
           }}
         />

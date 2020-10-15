@@ -9,11 +9,13 @@ export const LevelGainedSignaler = {
     }
   },
   unSubscribe: (fn) => {
-    LevelGainedSignaler.handlers = this.functions.filter((item) => {
-      if (item.fn !== fn) {
-        return item;
+    LevelGainedSignaler.handlers = LevelGainedSignaler.handlers.filter(
+      (item) => {
+        if (item.fn !== fn) {
+          return item;
+        }
       }
-    });
+    );
   },
   handlers: [],
   signal: (level) => {

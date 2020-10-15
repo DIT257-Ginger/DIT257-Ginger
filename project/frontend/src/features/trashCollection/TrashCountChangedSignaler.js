@@ -6,11 +6,13 @@ export const TrashCountChangedSignaler = {
     }
   },
   unSubscribe: (fn) => {
-    TrashCountChangedSignaler.handlers = this.functions.filter((item) => {
-      if (item.fn !== fn) {
-        return item;
+    TrashCountChangedSignaler.handlers = TrashCountChangedSignaler.handlers.filter(
+      (item) => {
+        if (item.fn !== fn) {
+          return item;
+        }
       }
-    });
+    );
   },
   handlers: [],
   signal: (newTrashCount) => {

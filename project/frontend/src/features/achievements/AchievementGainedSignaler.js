@@ -6,11 +6,13 @@ export const AchievementGainedSignaler = {
     }
   },
   unSubscribe: (fn) => {
-    AchievementGainedSignaler.handlers = this.functions.filter((item) => {
-      if (item.fn !== fn) {
-        return item;
+    AchievementGainedSignaler.handlers = AchievementGainedSignaler.handlers.filter(
+      (item) => {
+        if (item.fn !== fn) {
+          return item;
+        }
       }
-    });
+    );
   },
   handlers: [],
   signal: (id) => {

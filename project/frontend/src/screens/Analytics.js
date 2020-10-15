@@ -20,8 +20,9 @@ import {
   TrashTypes,
 } from "../features/trashCollection";
 import * as scale from "d3-scale";
+import { TrashCountChangedSignaler } from "../features/trashCollection";
 
-export default function analytics(navigation) {
+export default function analytics({ navigation }) {
   const [collectedTrash, setCollectedTrash] = useState(0);
 
   const [trashTypeValues, setTrashTypes] = useState([]);
@@ -46,9 +47,14 @@ export default function analytics(navigation) {
       );
       setTrashTypes(newTrashTypes);
     }
-
-    fetchTrashCount();
-    fetchTrashTypes();
+    const fetchState = () => {
+      fetchTrashCount();
+      fetchTrashTypes();
+    };
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchState();
+    });
+    return unsubscribe;
   }, []);
 
   /**

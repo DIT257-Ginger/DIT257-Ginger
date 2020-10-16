@@ -61,7 +61,7 @@ export default function Home({ navigation }) {
           </SafeAreaView>
         </View>
         <View style={styles.contents}>
-          <TrashRegister onTrashCountChanged={setTrashCount} />
+          <TrashRegister onTrashCountChanged={setTrashCount} navigation = {navigation} />
         </View>
       </View>
     </>

@@ -1,3 +1,11 @@
+/**
+ * subscribe adds the subscribed function to the list of functions
+ * that should be notified of change.
+ *
+ * unsubscribe removes the function from the list of subscriptions.
+ *
+ * signal will have each function in the list preform a function call.
+ */
 export const AchievementGainedSignaler = {
   subscribe: (fn, callWithId = true) => {
     const fnObj = { fn: fn, callWithId: callWithId };

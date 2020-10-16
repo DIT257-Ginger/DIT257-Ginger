@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import ScreenHeader from "../components/ScreenHeader";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProgressCircle from "react-native-progress-circle";
 import { allAchievements } from "../features/achievements/AllAchievements";
 import { getAchievements } from "../features/achievements/";
 import { AchievementGainedSignaler } from "../features/achievements/";
 
-export function Achievements({ navigaton }) {
+export function Achievements({ navigation }) {
   const [collectedAchievements, setcollectedAchievements] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   function reload() {
     setLoaded(false);
   }
-
-  
 
   async function fetchAchievement() {
     const achievements = await getAchievements();
@@ -61,32 +59,28 @@ export function Achievements({ navigaton }) {
             collected={item.collected}
           />
         )}
-        style={{ overflow: "visible" }}
+        style={{ overflow: "visible", marginTop: 5 }}
       />
     </View>
   );
 }
 
 const Header = ({ numCollected, totalAvailable }) => (
-  <View style={styles.headerContainer}>
-    <SafeAreaView>
-      <View style={styles.headerRow}>
-        <Text style={styles.headerTitle}>Achievements</Text>
-        <ProgressCircle
-          percent={(numCollected / totalAvailable) * 100}
-          radius={20}
-          borderWidth={3}
-          color="white"
-          shadowColor="#2e9e8d"
-          bgColor="#31A896"
-        >
-          <Text style={styles.headerCounter}>
-            {numCollected}/{totalAvailable}
-          </Text>
-        </ProgressCircle>
-      </View>
-    </SafeAreaView>
-  </View>
+  <ScreenHeader>
+    <Text style={styles.headerTitle}>Achievements</Text>
+    <ProgressCircle
+      percent={(numCollected / totalAvailable) * 100}
+      radius={20}
+      borderWidth={3}
+      color="white"
+      shadowColor="#2e9e8d"
+      bgColor="#31A896"
+    >
+      <Text style={styles.headerCounter}>
+        {numCollected}/{totalAvailable}
+      </Text>
+    </ProgressCircle>
+  </ScreenHeader>
 );
 
 const AchievementRow = ({ title, description, icon, secret, collected }) => (
@@ -139,31 +133,6 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: "#8EE1FF",
-  },
-  headerContainer: {
-    marginBottom: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    backgroundColor: "#31A896",
-    zIndex: 10,
-
-    // iOS shadow
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    // Android shadow
-    elevation: 4,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   headerTitle: {
     fontSize: 25,

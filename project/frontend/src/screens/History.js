@@ -18,7 +18,7 @@ export default function History({ navigation }) {
       <ScreenHeader>
         <Text style={styles.headerTitle}>History</Text>
       </ScreenHeader>
-      <TrashHistoryList style={{ overflow: "visible" }} />
+      <TrashHistoryList style={{ overflow: "visible", marginTop: 5 }} />
     </View>
   );
 }

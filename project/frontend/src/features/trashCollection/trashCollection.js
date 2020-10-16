@@ -94,6 +94,7 @@ export async function undoCollect(id) {
 
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
   return removedTrash;
 }
 
@@ -107,6 +108,7 @@ export async function undoLastCollect() {
   const lastCollect = collectedTrash.pop();
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
   return lastCollect;
 }
 

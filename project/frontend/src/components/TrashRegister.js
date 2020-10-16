@@ -17,10 +17,14 @@ import Icon from "react-native-vector-icons/FontAwesome";
 /**
  * Component for registering trash collected by user.
  */
-export default function TrashRegister({ onTrashCountChanged = () => {} }) {
+export default function TrashRegister({ onTrashCountChanged = () => {}, navigation }) {
   const [trashCount, setTrashCount] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const canIdleImg = require("../../assets/idleGif.gif");
+  const canCollectImg = require("../../assets/collectGifOneShot.gif")
+  const [collecting, setCollecting] = useState(false);
 
   async function fetchTrashCount() {
     const count = await readTrashCount();
@@ -38,7 +42,11 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
   }, [trashCount]);
 
   async function onAddBag() {
-    await collect("bag", 1);
+    if(!collecting){    
+      await collect("bag", 1);
+      showCollectionGif();
+      setTimeout(() => showIdleGif(),  4250);
+    }
     await fetchTrashCount();
   }
 
@@ -46,6 +54,15 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
     await collect("bag", -1); // TODO: Properly remove row
     await fetchTrashCount();
   }
+
+  async function showCollectionGif() {
+    setCollecting(true);
+  }
+
+  async function showIdleGif() {
+    setCollecting(false);
+  }
+
 
   return (
     <>
@@ -70,7 +87,10 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
       <View style={styles.container}>
         <Image
           style={styles.garbageCanImage}
-          source={require("../../assets/idleGif.gif")}
+          source={
+            collecting
+              ? require("../../assets/collectGifOneShot.gif")
+              : require("../../assets/idleGif.gif")}
         />
 
         <TouchableHighlight
@@ -85,12 +105,12 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
         <View style={styles.addRemoveTrashContainer}>
           <TouchableHighlight
             style={styles.removeButton}
-            onPress={() => {
-              onRemoveBag();
-            }}
+            onPress={() => 
+              navigation.navigate("History")
+            }
             testID={"remove-bag-btn"}
           >
-            <Icon name="minus" color={"white"} size={40} />
+            <Icon name="undo" color={"white"} size={40} />
           </TouchableHighlight>
 
           <Text style={styles.collectionText}>
@@ -104,7 +124,10 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
             }}
             testID={"add-bag-btn"}
           >
-            <Icon name="plus" color={"white"} size={40} />
+            <Image
+              source={require("../../assets/addbag.png")}
+              size={40}
+            />
           </TouchableHighlight>
         </View>
       </View>
@@ -121,10 +144,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  garbageCollectImage: {
+    flex: 1,
+    width: "100%",
+    resizeMode: "contain",
+    opacity: 0
+  },
   garbageCanImage: {
     flex: 1,
     width: "100%",
     resizeMode: "contain",
+    opacity: 100
   },
   collectButton: {
     width: 120,

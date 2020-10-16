@@ -1,4 +1,5 @@
-import { readTrashCount } from "../../persistence";
+import { readTrashCount, readCollectedTrash } from "../../persistence";
+import { notifyAchievement } from "../achievements/index";
 
 const trashToLevelFunction = (trash) => -0.5 + Math.sqrt(2 * trash + 0.25);
 
@@ -19,6 +20,13 @@ export function trashCountToLevel(trashCount) {
  */
 export async function getLevel() {
   const trashCount = await readTrashCount();
+  const addLvlToCollected = await readCollectedTrash();
+  const entry = {
+    type: "level",
+    amount: trashCountToLevel(trashCount),
+  };
+  addLvlToCollected.push(entry);
+  await notifyAchievement(addLvlToCollected);
   return trashCountToLevel(trashCount);
 }
 

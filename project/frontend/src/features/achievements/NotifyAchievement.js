@@ -10,7 +10,7 @@ import { AchievementGainedSignaler } from "./AchievementGainedSignaler";
  * Processes updates from functions that could result in
  * the user getting a new achievement or losing one as a result of
  * removing previously collected trash.
- * @param {Promise<Array{String, Number}]>} - all stored entries
+ * @param {Array<{String, Number}>} - all stored entries
  */
 export async function notifyAchievement(trashEntries) {
   const collectedTrash = await sortTrashTypes(await trashEntries);
@@ -42,7 +42,7 @@ export async function notifyAchievement(trashEntries) {
 /**
  * Creates a list containing the trash-types and how many times
  * each one has been collected.
- * @param {Promise<Array{String, Number}]>}
+ * @param {Array<{String, Number}>}
  */
 async function sortTrashTypes(trashEntries) {
   const trashTypes = [
@@ -95,7 +95,7 @@ async function updateAchievements(id) {
 
 /**
  * Returns all acquired achievements stored persistently.
- * @returns {Promise<[collectedAchievements]>}
+ * @returns {Promise<[]>}
  * - the entire achievement-object, not just id.
  */
 export async function getAchievements() {
@@ -115,7 +115,7 @@ export async function getAchievements() {
 
 /**
  * Will return the the achievements which the stored id corresponds to.
- * @param {Promise<[]>} collectedAchievements - achievements from persistence.
+ * @param {[]} collectedAchievements - achievements from persistence.
  */
 async function getCorresponding(collectedAchievements) {
   const correspondingAchievement = [];
@@ -130,7 +130,7 @@ async function getCorresponding(collectedAchievements) {
 /**
  * Removes granted achievements that no longer have their
  * conditions met.
- * @param {Promise<Number>} id - the id of the achievement to be
+ * @param {Number} id - the id of the achievement to be
  * removed.
  */
 async function removeAchievement(id) {

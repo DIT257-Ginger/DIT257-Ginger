@@ -8,3 +8,4 @@ export {
   undoCollectsFrom,
   calculateTrashCountOfType,
 } from "./trashCollection";
+export { TrashCountChangedSignaler } from "./TrashCountChangedSignaler";

@@ -4,7 +4,7 @@ const ACHIEVEMENT_STORAGE_KEY = "achievementList";
 
 /**
  * Stores the list of acquired achievements locally.
- * @param {Array<{id: <Number>, hasCollected: boolean }>} achievementList  - the list of collected achievements
+ * @param {Array<{id: Number, hasCollected: Boolean }>} achievementList  - the list of collected achievements
  */
 export async function writeCollectedAchievements(achievementList) {
   const achievementString = JSON.stringify(achievementList);
@@ -13,7 +13,7 @@ export async function writeCollectedAchievements(achievementList) {
 
 /**
  * Reads from the persistent memory and
- * @returns {Promise<Array<{id: <Number>, hasCollected: boolean }>>}, which is a list of all granted
+ * @returns {Promise<Array<{id: Number, hasCollected: Boolean }>>}, which is a list of all granted
  * achievement-objects.
  */
 export async function readCollectedAchievements() {
@@ -25,7 +25,7 @@ export async function readCollectedAchievements() {
 }
 /**
  * Pushes an achievement to the persistent memory.
- * @param {Array<{id: <Number>, hasCollected: boolean }>} item
+ * @param {Array<{id: Number, hasCollected: Boolean }>} item
  */
 export async function pushCollected(item) {
   const collected = await readCollectedAchievements();

@@ -8,11 +8,11 @@ export default function WelcomeInfoModal({ closeModal = () => {} }) {
   const PAGES = [
     <>
       <Image style={styles.logo} source={require("../../assets/pickit5.png")} />
-      <Text style={styles.titleText}>Welcome to Keep Clean World</Text>
+      <Text style={styles.titleText}>Welcome to Pick It!</Text>
       <Text style={styles.titleText}>Nice to see you here</Text>
       <View style={styles.infoBox}>
         <Text style={styles.paragraph}>
-          Keep Clean application contributes to cleaner environment. You are
+          Pick It contributes to cleaner environment. You are
           able to collect the trash, register number of collected bags, keep the
           track of your performance and at the end receive different type of
           rewards.

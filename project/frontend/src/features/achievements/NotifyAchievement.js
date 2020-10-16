@@ -78,9 +78,9 @@ async function sortTrashTypes(trashEntries) {
 
 /**
  * Adds newly acquired achievements persistent storage.
- * The object being pushed to memory: {id: Promise<Number>, hasCollected: boolean}
+ * The object being pushed to memory: {id: Number, hasCollected: boolean}
  * Will also send a signal for each one.
- * @param {Promise<Number>} id - the id of the achievement
+ * @param {Number} id - the id of the achievement
  */
 async function updateAchievements(id) {
   const collected = await getAchievements();

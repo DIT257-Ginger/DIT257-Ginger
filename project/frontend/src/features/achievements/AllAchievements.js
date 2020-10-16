@@ -1,4 +1,3 @@
-//import { AchievementHandler } from "./AchievementHandler";
 /**
  * Contains list of all achievement-objects
  * Function for putting acquired achievement in list, which

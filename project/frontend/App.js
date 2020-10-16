@@ -1,12 +1,9 @@
 import "react-native-gesture-handler";
 import "react-native-get-random-values"; // Needed for uuids
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { AppRegistry, StyleSheet, View, Button } from "react-native";
-import React, { Component } from "react";
+import React from "react";
 import Home from "./src/screens/Home";
 import { Achievements } from "./src/screens/Achievements";
-import Login from "./src/screens/Login";
 import Analytics from "./src/screens/Analytics";
 import History from "./src/screens/History";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

@@ -6,13 +6,13 @@ import {
   XAxis,
   YAxis,
 } from "react-native-svg-charts";
-import { Circle, G, Image, Line, Text } from "react-native-svg";
+import { Circle, G, Image, Line } from "react-native-svg";
 import collectedTrash, {
   readCollectedTrash,
 } from "../persistence/local/collectedTrash";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Text } from "react-native";
 import { render } from "react-dom";
-import { max, set, Value } from "react-native-reanimated";
+import { color, max, set, Value } from "react-native-reanimated";
 import { readTrashCount } from "../persistence";
 import {
   calculateTrashCountOfType,
@@ -125,6 +125,8 @@ export default function analytics(navigation) {
    */
   const pieData = trashTypeData.filter((value) => value.amount > 0);
 
+  const amountOfWholeTrash = collectedTrash;
+
   /**
    * Used to get the chosen Images from trashTypes module
    */
@@ -172,8 +174,18 @@ export default function analytics(navigation) {
         >
           <Labels />
         </PieChart>
+        <Text
+          style={{
+            color: randomColor(),
+            alignSelf: "center",
+            marginBottom: 10,
+            paddingHorizontal: 20,
+            fontSize: 25,
+          }}
+        >
+          {collectedTrash} Trash Bags
+        </Text>
       </View>
-      <Text></Text>
 
       <View style={{ flexDirection: "row", flex: 1, paddingVertical: 14 }}>
         <YAxis

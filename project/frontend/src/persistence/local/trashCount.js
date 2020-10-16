@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
+import { TrashCountChangedSignaler } from "../../features/trashCollection/TrashCountChangedSignaler";
 
 const TRASH_COUNT_KEY = "trash_count";
 
@@ -7,6 +8,7 @@ const TRASH_COUNT_KEY = "trash_count";
  * @param {number} trashCount - value to be stored
  */
 export async function writeTrashCount(trashCount) {
+  TrashCountChangedSignaler.signal(trashCount);
   const trashString = JSON.stringify(trashCount);
   await AsyncStorage.setItem(TRASH_COUNT_KEY, trashString);
 }
@@ -29,5 +31,5 @@ export async function readTrashCount() {
  * @param {number} amount - how much to increment trash count
  */
 export async function incrementTrashCount(amount) {
-  await writeTrashCount(await readTrashCount() + amount)
+  await writeTrashCount((await readTrashCount()) + amount);
 }

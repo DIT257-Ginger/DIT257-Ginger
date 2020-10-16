@@ -32,7 +32,7 @@ export async function collect(type, amount) {
   await pushToCollectedTrash(newTrash);
   const value = getValue(newTrash);
   await incrementTrashCount(value);
-  notifyAchievement(await readCollectedTrash()); //signals change
+  notifyAchievement(await readCollectedTrash()); //signals achievement may be gained
   return newTrash;
 }
 
@@ -94,6 +94,7 @@ export async function undoCollect(id) {
 
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
   return removedTrash;
 }
 
@@ -107,6 +108,7 @@ export async function undoLastCollect() {
   const lastCollect = collectedTrash.pop();
   await writeCollectedTrash(collectedTrash);
   await refreshTrashCount();
+  notifyAchievement(await readCollectedTrash()); //signals change
   return lastCollect;
 }
 

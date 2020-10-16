@@ -1,27 +1,24 @@
-import React, { Component, useState, useEffect } from "react";
-import {
-  PieChart,
-  BarChart,
-  Grid,
-  XAxis,
-  YAxis,
-} from "react-native-svg-charts";
-import { Circle, G, Image, Line } from "react-native-svg";
 import collectedTrash, {
   readCollectedTrash,
 } from "../persistence/local/collectedTrash";
-import { StyleSheet, View, Dimensions, Text } from "react-native";
-import { render } from "react-dom";
+
 import { color, max, set, Value } from "react-native-reanimated";
+
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
+import ScreenHeader from "../components/ScreenHeader";
+import { PieChart, BarChart, Grid, YAxis } from "react-native-svg-charts";
+import { Circle, G, Image } from "react-native-svg";
+
 import { readTrashCount } from "../persistence";
 import {
   calculateTrashCountOfType,
   getTrashTypes,
-  TrashTypes,
 } from "../features/trashCollection";
 import * as scale from "d3-scale";
+import { TrashCountChangedSignaler } from "../features/trashCollection";
 
-export default function analytics(navigation) {
+export default function Analytics({ navigation }) {
   const [collectedTrash, setCollectedTrash] = useState(0);
 
   const [trashTypeValues, setTrashTypes] = useState([]);
@@ -46,9 +43,14 @@ export default function analytics(navigation) {
       );
       setTrashTypes(newTrashTypes);
     }
-
-    fetchTrashCount();
-    fetchTrashTypes();
+    const fetchState = () => {
+      fetchTrashCount();
+      fetchTrashTypes();
+    };
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchState();
+    });
+    return unsubscribe;
   }, []);
 
   /**
@@ -162,7 +164,10 @@ export default function analytics(navigation) {
    */
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.screenContainer}>
+      <ScreenHeader>
+        <Text style={styles.headerTitle}>Analytics</Text>
+      </ScreenHeader>
       <View>
         <PieChart
           style={{ height: 350 }}
@@ -224,3 +229,15 @@ export default function analytics(navigation) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    backgroundColor: "#8EE1FF",
+  },
+  headerTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
+  },
+});

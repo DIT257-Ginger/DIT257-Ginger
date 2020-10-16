@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default ({ children }) => (
-  <View style={styles.headerContainer}>
+export default ({ children, style }) => (
+  <View style={[styles.headerContainer, style]}>
     <SafeAreaView>
       <View style={styles.headerRow}>{children}</View>
     </SafeAreaView>
@@ -12,7 +12,6 @@ export default ({ children }) => (
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginBottom: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderBottomLeftRadius: 20,

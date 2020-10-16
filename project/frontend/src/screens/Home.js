@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ScreenHeader from "../components/ScreenHeader";
 import {
   StyleSheet,
   Text,
@@ -9,7 +10,6 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import TrashRegister from "../components/TrashRegister";
 import UserLevel from "../components/UserLevel";
 import WelcomeInfoModal from "../components/WelcomeInfoModal";
@@ -34,32 +34,28 @@ export default function Home({ navigation }) {
         </Modal>
       ) : null}
       <View style={styles.container}>
-        <View style={styles.top}>
-          <SafeAreaView>
-            <View style={styles.headerRow}>
-              <View
-                style={{
-                  width: 80,
-                  height: 80,
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
-                }}
-              >
-                <TouchableOpacity
-                  style={styles.infoBtn}
-                  onPress={() => setWelcomeModalVisible(true)}
-                >
-                  <Icon name="info" color={"white"} size={30} />
-                </TouchableOpacity>
-              </View>
-              <Image
-                style={styles.appLogo}
-                source={require("../../assets/pickit5.png")}
-              />
-              <UserLevel trashCount={trashCount} style={styles.userLevel} />
-            </View>
-          </SafeAreaView>
-        </View>
+        <ScreenHeader style={styles.header}>
+          <View
+            style={{
+              width: 80,
+              height: 80,
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              style={styles.infoBtn}
+              onPress={() => setWelcomeModalVisible(true)}
+            >
+              <Icon name="info" color={"white"} size={30} />
+            </TouchableOpacity>
+          </View>
+          <Image
+            style={styles.appLogo}
+            source={require("../../assets/pickit5.png")}
+          />
+          <UserLevel trashCount={trashCount} style={styles.userLevel} />
+        </ScreenHeader>
         <View style={styles.contents}>
           <TrashRegister onTrashCountChanged={setTrashCount} navigation = {navigation} />
         </View>
@@ -77,15 +73,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#8EE1FF",
   },
-  top: {
-    backgroundColor: "#31A896",
+  header: {
+    // Override default padding and rounding of ScreenHeader
+    paddingVertical: 0,
+    paddingHorizontal: 0,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "space-between",
   },
   infoBtn: {
     marginLeft: 5,

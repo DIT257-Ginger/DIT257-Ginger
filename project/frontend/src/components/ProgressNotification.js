@@ -14,7 +14,7 @@ import {
 } from "../features/achievements";
 import { LevelGainedSignaler } from "../features/leveling";
 import UserLevel from "./UserLevel";
-import { shareText } from "../sharing";
+import { shareText } from "../features/sharing";
 
 function ProgressNotificationContent({ onClosed, type, value }) {
   let content = null;

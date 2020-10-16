@@ -24,8 +24,7 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
 
   const canIdleImg = require("../../assets/idleGif.gif");
   const canCollectImg = require("../../assets/collectGifOneShot.gif")
-  var [collecting, setCollecting] = useState(false);
-  var [addingTrash, setAdding] = useState(false);
+  const [collecting, setCollecting] = useState(false);
 
   async function fetchTrashCount() {
     const count = await readTrashCount();
@@ -46,10 +45,9 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
     if(!collecting){    
       await collect("bag", 1);
       showCollectionGif();
-      timer1 = setTimeout(() => showIdleGif(),  4250)
+      setTimeout(() => showIdleGif(),  4250);
     }
     await fetchTrashCount();
-    return () => clearTimeout(timer1);
   }
 
   async function onRemoveBag() {
@@ -63,7 +61,6 @@ export default function TrashRegister({ onTrashCountChanged = () => {} }) {
 
   async function showIdleGif() {
     setCollecting(false);
-    setAdding(false)
   }
 
   return (

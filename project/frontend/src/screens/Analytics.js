@@ -165,10 +165,11 @@ export default function Analytics({ navigation }) {
 
   return (
     <View style={styles.screenContainer}>
-      <ScreenHeader>
+      <ScreenHeader style={{ position: "absolute", width: "100%" }}>
         <Text style={styles.headerTitle}>Analytics</Text>
       </ScreenHeader>
-      <View>
+
+      <View style={{ flex: 1, paddingTop: 100 }}>
         <PieChart
           style={{ height: 350 }}
           valueAccessor={({ item }) => item.amount}
@@ -188,43 +189,43 @@ export default function Analytics({ navigation }) {
             fontSize: 25,
           }}
         >
-          {collectedTrash} Trash Bags
+          {collectedTrash.toFixed(2)} Trash Bags
         </Text>
-      </View>
 
-      <View style={{ flexDirection: "row", flex: 1, paddingVertical: 14 }}>
-        <YAxis
-          data={trashTypeData}
-          yAccessor={({ index }) => index}
-          scale={scale.scaleBand}
-          contentInset={{ top: 20, bottom: 1 }}
-          spacing={100}
-          svg={{
-            fill: "black",
-            fontWeight: "900",
-            fontSize: 16,
-            strokeWidth: 5.1,
-            baselineShift: 10,
-          }}
-          style={{ marginLeft: 10, width: 35 }}
-          numberOfTicks={3}
-          formatLabel={(_, index) => trashTypeData[index].amount}
-        />
-        <BarChart
-          style={{ flex: 1 }}
-          data={trashTypeData}
-          horizontal={true}
-          yAccessor={({ item }) => item.amount}
-          yMax={findMaxValueScaleYAxis + 2}
-          svg={{ fill: "rgba(134, 65, 244, 0.8)" }}
-          animate={true}
-          animationDuration={600}
-          contentInset={{ top: 10, bottom: 10 }}
-          spacing={0.2}
-          gridMin={1}
-        >
-          <Grid direction={Grid.Direction.VERTICAL} />
-        </BarChart>
+        <View style={{ flexDirection: "row", flex: 1, paddingVertical: 14 }}>
+          <YAxis
+            data={trashTypeData}
+            yAccessor={({ index }) => index}
+            scale={scale.scaleBand}
+            contentInset={{ top: 20, bottom: 1 }}
+            spacing={100}
+            svg={{
+              fill: "black",
+              fontWeight: "900",
+              fontSize: 16,
+              strokeWidth: 5.1,
+              baselineShift: 10,
+            }}
+            style={{ marginLeft: 10, width: 35 }}
+            numberOfTicks={3}
+            formatLabel={(_, index) => trashTypeData[index].amount}
+          />
+          <BarChart
+            style={{ flex: 1 }}
+            data={trashTypeData}
+            horizontal={true}
+            yAccessor={({ item }) => item.amount}
+            yMax={findMaxValueScaleYAxis + 2}
+            svg={{ fill: "rgba(134, 65, 244, 0.8)" }}
+            animate={true}
+            animationDuration={600}
+            contentInset={{ top: 10, bottom: 10 }}
+            spacing={0.2}
+            gridMin={0}
+          >
+            <Grid direction={Grid.Direction.VERTICAL} />
+          </BarChart>
+        </View>
       </View>
     </View>
   );

@@ -1,0 +1,116 @@
+Statistical information for the repository 'DIT257-Ginger' was gathered on 2020/10/19.
+The following historical commit information, by author, was found in the repository:
+
+Author                     Commits    Insertions      Deletions    % of changes
+Bashar                          11         74340          73802           82.65
+Benjamin Sannholm               15          1126          24854           14.50
+DrAvokad                         1            30              1            0.02
+Emanuel Olaison                  6           716             48            0.43
+Isabella                        15          1683            831            1.40
+Pixie Waffle                     7          1003            401            0.78
+Snjezana Simic                   1             3              3            0.00
+erathiian                       15            27            149            0.10
+git.nuclear                      2           202             14            0.12
+
+Below are the number of rows from each author that have survived and are still intact in the current revision:
+
+Author                     Rows      Stability          Age       % in comments
+Bashar                      549            0.7          2.5               12.02
+Benjamin Sannholm           888           78.9          1.4                3.72
+DrAvokad                     22           73.3          0.0                0.00
+Emanuel Olaison             612           85.5          1.3                9.64
+Isabella                    806           47.9          1.3                6.95
+Pixie Waffle                649           64.7          2.0                3.08
+erathiian                    23           85.2          0.5               47.83
+
+The following history timeline has been gathered from the repository:
+
+Author                  2020W36    2020W37    2020W38    2020W39    2020W40    2020W41    2020W42 
+Bashar                            ----++++   -+++++++                     .   ----++++          . 
+Benjamin Sannholm     +++++++++                     +        +++                     -  --+++++++ 
+DrAvokad                                                                                        . 
+Emanuel Olaison                                                      ++++++          .     ++++++ 
+Isabella                                     ++++++++   ------++      -++++          .   ++++++++ 
+Pixie Waffle                                            --++++++  ---++++++          .          . 
+Snjezana Simic                                                                                  . 
+erathiian                                                      .          .          .          . 
+git.nuclear                                                  +++                                  
+Modified Rows:               28         16        814       1514       1218     174158       1485 
+
+No metrics violations were found in the repository.
+
+The following responsibilities, by author, were found in the current revision of the repository (comments are excluded from the line count, if possible):
+
+Bashar is mostly responsible for:
+   182 project/frontend/src/screens/Analytics.js
+    60 project/frontend/src/tests/leveling.test.js
+    35 project/frontend/src/tests/UserLevel.test.js
+    34 project/frontend/src/components/UserLevel.js
+    34 project/frontend/src/components/TrashRegister.js
+    26 project/frontend/src/tests/trashCount.test.js
+    24 project/frontend/src/features/leveling/leveling.js
+    22 project/frontend/src/tests/TrashRegister.test.js
+    17 project/frontend/src/persistence/local/trashCount.js
+    10 project/frontend/src/features/trashCollection/trashCollection.js
+
+Benjamin Sannholm is mostly responsible for:
+   148 project/frontend/src/components/TrashHistoryList.js
+   118 project/frontend/src/components/WelcomeInfoModal.js
+   108 project/frontend/src/screens/Achievements.js
+    83 project/frontend/src/tests/trashCollection.test.js
+    80 project/frontend/src/tests/TrashHistoryList.test.js
+    56 project/frontend/src/screens/Home.js
+    35 project/frontend/App.js
+    34 project/frontend/src/components/ScreenHeader.js
+    27 project/frontend/src/features/sharing/index.js
+    24 project/frontend/src/screens/History.js
+
+DrAvokad is mostly responsible for:
+    22 project/frontend/src/components/TrashRegister.js
+
+Emanuel Olaison is mostly responsible for:
+   167 project/frontend/src/components/ProgressNotification.js
+   109 project/frontend/src/tests/trashCollection.test.js
+    67 project/frontend/src/features/trashCollection/trashCollection.js
+    39 project/frontend/src/features/trashCollection/trashTypes.js
+    39 project/frontend/src/features/leveling/LevelGainedSignaler.js
+    27 project/frontend/src/features/trashCollection/TrashCountChangedSignaler.js
+    25 project/frontend/src/persistence/local/collectedTrash.js
+    11 project/frontend/src/tests/collectedTrash.test.js
+    10 project/frontend/src/persistence/index.js
+     9 project/frontend/src/screens/History.js
+
+Isabella is mostly responsible for:
+   276 project/frontend/src/tests/notifyAchievement.test.js
+   110 project/frontend/src/features/achievements/NotifyAchievement.js
+   103 project/frontend/src/features/achievements/AllAchievements.js
+    87 project/frontend/src/screens/Achievements.js
+    46 project/frontend/App.js
+    28 project/frontend/src/screens/Login.js
+    23 project/frontend/src/features/achievements/AchievementGainedSignaler.js
+    19 project/frontend/src/screens/UserSettings.js
+    19 project/frontend/src/persistence/local/AchivementStorage.js
+    14 project/frontend/src/screens/Home.js
+
+Pixie Waffle is mostly responsible for:
+   171 project/frontend/src/components/TrashRegistrationSelection.js
+   152 project/frontend/src/components/TrashRegister.js
+    69 project/frontend/src/screens/Login.js
+    51 project/frontend/src/tests/TrashRegistrationCollection.test.js
+    48 project/frontend/src/tests/TrashRegister.test.js
+    46 project/frontend/src/screens/UserSettings.js
+    43 project/frontend/src/components/ProgressNotification.js
+    17 project/frontend/src/screens/Home.js
+    10 project/frontend/src/screens/Achievements.js
+     4 project/frontend/src/tests/TrashHistoryList.test.js
+
+erathiian is mostly responsible for:
+     3 project/frontend/src/components/TrashRegister.js
+     2 project/frontend/src/screens/Achievements.js
+     2 project/frontend/src/features/leveling/leveling.js
+     2 project/frontend/src/features/achievements/NotifyAchievement.js
+     2 project/frontend/src/components/WelcomeInfoModal.js
+     1 project/frontend/src/components/ProgressNotification.js
+
+The extensions below were found in the repository history (extensions used during statistical analysis are marked):
+* css flow gradle [h] html iml [java] [js] json lock log m map md pbxproj peg podspec snap ts tsx txt xml yml 

@@ -3,7 +3,8 @@
 
 @DrAvokad has also done a lot of pixel art animations which took longer than expected and do not show on the contributions report.  
 @Bashar3 has made some app logos also.  
-@SnjezanaSimic has made a welcome pop-up page and information about the application.  
+@SnjezanaSimic has made a welcome pop-up page and information about the application.
+
 Bashar Oumari (a.k.a. git.nuclear & Bashar3)  
 Benjamin Sannholm (a.k.a. Sannholm)  
 Emanuel Olaison (a.k.a erathiian)  
@@ -12,14 +13,10 @@ Sophia Pham (a.k.a. Pixie Waffle & sophiapham
 Alexander Grönberg (a.k.a. DrAvokad)  
 Snjezana Simic (a.k.a. SnjezanaSimic)
 
-
-GitHub Insights:
-
-https://github.com/DIT257-Ginger/DIT257-Ginger/pulse  
+GitHub Insights: https://github.com/DIT257-Ginger/DIT257-Ginger/pulse  
 gitinspector report: https://github.com/DIT257-Ginger/DIT257-Ginger/blob/master/documentation/deliverables/gitinspector
 
-**NOTE**: Unfortunately co-authors do not show on the above reports, so below is a list of commits with co-authors:
-
+**NOTE**: Unfortunately co-authors do not show on the above reports, so below is a list of commits with co-authors:  
 https://github.com/DIT257-Ginger/DIT257-Ginger/commit/ae03bc8641e73d86c179c9a8925382b8a3c77834 (Sophia and Benjamin)  
 https://github.com/DIT257-Ginger/DIT257-Ginger/commit/d51be4140defddabe6d68eb69b9226819b1b9aed (Sophia and Benjamin)  
 https://github.com/DIT257-Ginger/DIT257-Ginger/commit/6136bb2dd48e01ae7a40135b977e81b6e4d45864 (Sophia and Benjamin)  

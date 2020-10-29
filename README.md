@@ -42,10 +42,19 @@ Our Final report, team reflections and individual reflections are under “/docu
 
 # How to run the app
 
-- Make sure NodeJS (v12 LTS) is installed (https://nodejs.org/)
-- Open a terminal in the frontend directory
-- Run ‘npm install -g expo-cli’
-- Run ‘npm install’
-- Run ‘npm start’
-- Download the Expo app to your own smartphone.
-- Scan the QR code shown in the terminal using your smartphone.
+**If you have an Android smartphone:**
+1. Install Expo app from Play store.
+2. Scan the QR code below with the Expo app.
+3. Enjoy the app!
+
+![QR Code for Expo app](documentation/deliverables/qrCodeExpo.png)
+
+**If the above does not work:**
+1. Make sure NodeJS (v12 LTS) is installed (https://nodejs.org/)
+2. Open a terminal in the frontend directory
+3. Run ‘npm install -g expo-cli’
+4. Run ‘npm install’
+5. Run ‘npm start’
+6. Download the Expo app from the Play/App Store.
+7. Scan the QR code shown in the terminal using your smartphone (in Expo app on Android, using camera app on iOS).
+8. Enjoy the app!

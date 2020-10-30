@@ -36,9 +36,20 @@ GitHub Project Boards (https://github.com/DIT257-Ginger/DIT257-Ginger/projects/1
 Discord (https://discord.gg/Cas3vVx)
 
 # Directory Structure
-
+IN GITHUB
+All code is located at "/project/frontend/src/"
 Our tests are under “/project/frontend/src/tests”.  
-Our Final report, team reflections and individual reflections are under “/documentation”.
+Our Final Report is under "/documentation/deliverables"
+Social Contract, Project Epic, Initial Backlog, Gitinspector-data and Project KPI's are under "/documentation/deliverables"
+Individual Reflections (each person has a folder inside) are located under "/documentation/individual-reflection"
+Team Reflections are located in "/documentation/team-reflections"
+
+IN GOOGLE DRIVE
+Minutes of Meeting for each meeting are located at "/Meetings"
+DoD is in the file "Definition of Done" at "/Workflow"
+Initial sketch of user stories and ideas "Keep Clean App" at "./"
+Description of achiements both "Achievements" and "Function Description Achi" at "./"
+Various sketches for our initial GUI-design are located at "/GUI Prototypes"
 
 # How to run the app
 

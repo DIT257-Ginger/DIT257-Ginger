@@ -1,12 +1,12 @@
 # DIT257-Ginger
 # Contributors
 
-- Bashar Oumari (a.k.a. git.nuclear & Bashar3)  
-- Benjamin Sannholm (a.k.a. Sannholm)  
-- Emanuel Olaison (a.k.a erathiian)  
-- Isabella Fransson (a.k.a. ison-grazer)  
-- Sophia Pham (a.k.a. Pixie Waffle & sophiapham  
-- Alexander Grönberg (a.k.a. DrAvokad)  
+- Bashar Oumari (a.k.a. git.nuclear & Bashar3)
+- Benjamin Sannholm (a.k.a. Sannholm)
+- Emanuel Olaison (a.k.a erathiian)
+- Isabella Fransson (a.k.a. ison-grazer)
+- Sophia Pham (a.k.a. Pixie Waffle & sophiapham)
+- Alexander Grönberg (a.k.a. DrAvokad)
 - Snjezana Simic (a.k.a. SnjezanaSimic)
 
 **GitHub Insights:** https://github.com/DIT257-Ginger/DIT257-Ginger/pulse  
